@@ -1,13 +1,11 @@
 <?php 
+    include 'components/config.php';
 
+    $query = mysqli_query($connection, "SELECT * FROM user");
 
 ?>
 
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -22,6 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -37,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Citra Kos</h1>
+            <h1 class="m-0 text-dark">Manajemen User</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -53,7 +54,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        
+      <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <a class="btn btn-primary" href="adduser.php">Add User</a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th style="width: 70px">ID User</th>
+                    <th>Nama User</th>
+                    <th>PIN User</th>
+                    <th>Role User</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <?php if(mysqli_num_rows($query) > 0) { ?>
+                        <?php while($row = mysqli_fetch_array($query)) { ?>
+                            <tr>
+                                <td><?php echo $row['idUser']?></td>
+                                <td><?php echo $row['namaUser']?></td>
+                                <td><?php echo $row['pinUser']?></td>
+                                <td><?php echo $row['roleUser']?></td>
+                                <td>
+                                    <a href="updatedelete/updatedeleteuser.php?iduser=<?php echo $row['idUser'] ?>"><i class="fas fa-edit"></i></a> | 
+                                    <a href="updatedelete/updatedeleteuser.php?iduserhapus=<?php echo $row['idUser'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                                </td> 
+                            </tr>
+                        <?php } ?>
+                    <?php } ?>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -80,5 +122,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="assets/js/datatable.js"></script>
 </body>
 </html>
