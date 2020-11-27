@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position:fixed">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -42,7 +42,13 @@
               <li class="nav-item">
                 <a href="historykuitansi.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>History Data Print Kuitansi</p>
+                  <p>History Print Kuitansi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="jenispembayaran.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jenis Pembayaran</p>
                 </a>
               </li>
             </ul>
