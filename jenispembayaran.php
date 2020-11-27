@@ -1,7 +1,7 @@
 <?php 
     include 'components/config.php';
 
-    $query = mysqli_query($connection, "SELECT * FROM user");
+    $query = mysqli_query($connection, "SELECT * FROM jenispembayaran");
 
 ?>
 
@@ -38,12 +38,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manajemen User</h1>
+            <h1 class="m-0 text-dark">Jenis Pembayaran</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manajemen User</li>
+              <li class="breadcrumb-item active">Jenis Pembayaran</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -58,17 +58,14 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a class="btn btn-primary" href="adduser.php">Add User</a>
+                <a class="btn btn-primary" href="addjenispembayaran.php">Add Jenis Pembayaran</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th style="width: 70px">ID User</th>
-                    <th>Nama User</th>
-                    <th>PIN User</th>
-                    <th>Role User</th>
+                    <th>Jenis Pembayaran</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -76,13 +73,10 @@
                     <?php if(mysqli_num_rows($query) > 0) { ?>
                         <?php while($row = mysqli_fetch_array($query)) { ?>
                             <tr>
-                                <td><?php echo $row['idUser']?></td>
-                                <td><?php echo $row['namaUser']?></td>
-                                <td><?php echo $row['pinUser']?></td>
-                                <td><?php echo $row['roleUser']?></td>
+                                <td><?php echo $row['jenisPemb']?></td>
                                 <td>
-                                    <a href="updatedelete/updatedeleteuser.php?iduser=<?php echo $row['idUser'] ?>"><i class="fas fa-edit"></i></a> | 
-                                    <a href="updatedelete/updatedeleteuser.php?iduserhapus=<?php echo $row['idUser'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                                    <a href="updatedelete/updatedeletejenispembayaran.php?jenispemb=<?php echo $row['jenisPemb'] ?>"><i class="fas fa-edit"></i></a> | 
+                                    <a href="updatedelete/updatedeletejenispembayaran.php?jenispembhapus=<?php echo $row['jenisPemb'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
                                 </td> 
                             </tr>
                         <?php } ?>
