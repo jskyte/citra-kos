@@ -34,13 +34,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="printkuitansi.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Print Kuitansi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="historykuitansi.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>History Data Print Kuitansi</p>
                 </a>
@@ -64,13 +64,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="properti.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lokasi Properti</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="kerjauser.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lokasi Kerja User</p>
                 </a>
