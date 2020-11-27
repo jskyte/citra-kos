@@ -1,0 +1,29 @@
+.container-form {
+    box-shadow: 5px 10px 8px #888888;
+    border-radius: 5px; 
+    
+}
+
+.custom-form {
+    border: 0px;
+    border-radius: 5px;
+    
+}
+
+.custom-form-group {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    border-top: 1px solid #999;
+    border-radius: 5px;  
+      
+}
+
+.bottom-label {
+    border-bottom: 1px solid #999;
+}
+
+.label-login {
+    padding-left: 10px;
+    padding-top: 4px;
+    color: #8a8a8a;
+}
