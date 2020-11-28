@@ -1,18 +1,24 @@
 <?php 
     include 'components/config.php';
 
-    if(isset($_POST['submit'])) {
-      $idUser = $_REQUEST["inputIdUser"];
-      $namaUser = $_REQUEST["inputNamaUser"];
-      $pinUser = $_REQUEST["inputPinUser"];
-      $roleUser = $_REQUEST["inputRoleUser"];
+    $query = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
-  
-      mysqli_query($connection, "INSERT INTO user VALUES ('$idUser', '$namaUser', '$pinUser', '$roleUser')");
-  
-  
-      header("location:user.php");
+    if(isset($_POST['submit'])) {
+        $lokasiKosId = $_REQUEST["editLokasiKosId"];
+        $lokasiKos = $_REQUEST["editLokasiKos"];
+
+        mysqli_query($connection, "UPDATE lokasiproperti SET lokasiKos = '$lokasiKos' WHERE lokasiKos = '$lokasiKosId'");
+        header("location:properti.php");
     } 
+    else if (isset($_GET["lokasikoshapus"])) {
+        $lokasiKos = $_GET["lokasikoshapus"];
+        mysqli_query($connection, "DELETE FROM lokasiproperti WHERE lokasiKos = '$lokasiKos'");
+        header("location:properti.php");
+    }
+
+    $lokasiKosId = $_GET["lokasikos"];
+    $edit = mysqli_query($connection, "SELECT * FROM lokasiproperti WHERE lokasiKos = '$lokasiKosId'");
+    $row_edit = mysqli_fetch_array($edit);
 
 ?>
 
@@ -46,12 +52,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manajemen User</h1>
+            <h1 class="m-0 text-dark">Update Properti</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manajemen User</li>
+              <li class="breadcrumb-item active">Update Properti</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -66,39 +72,23 @@
           <div class="col-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambahkan Data User</h3>
+                <h3 class="card-title">Ubah Lokasi Properti</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="iduser">ID User</label>
-                    <input type="text" class="form-control" id="iduser" name="inputIdUser" placeholder="Enter ID User">
+                    <label for="lokasiProperti">Lokasi Properti</label>
+                    <input type="text" class="form-control" id="lokasiProperti" name="editLokasiKos" value="<?php echo $row_edit['lokasiKos'] ?>">
                   </div>
-                  <div class="form-group">
-                    <label for="namaUser">Nama User</label>
-                    <input type="text" class="form-control" id="namaUser" name="inputNamaUser" placeholder="Enter Nama User">
-                  </div>
-                  <div class="form-group">
-                    <label for="pinUser">PIN User</label>
-                    <input type="number" class="form-control" id="pinUser" name="inputPinUser" placeholder="Enter PIN User">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-group">
-                        <label>Role User</label>
-                        <select class="form-control" name="inputRoleUser"> 
-                          <option value="Owner">Owner</option>
-                          <option value="Kasir">Kasir</option>
-                        </select>
-                  </div>
-
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                  <a href="user.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
+                  <input type="hidden" name="editLokasiKosId" value="<?php echo $row_edit["lokasiKos"]?>">
+                  <a href="properti.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
                 </div>
               </form>
             </div>

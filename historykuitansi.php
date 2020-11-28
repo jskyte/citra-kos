@@ -70,7 +70,6 @@
                     <th>Category Tempat</th>
                     <th>Tanggal Bayar</th>
                     <th>Tanggal Otorisasi</th>
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -85,9 +84,6 @@
                                 <td><?php echo $row['Category_Tempat']?></td>
                                 <td><?php echo $row['Tgl_Byr']?></td>
                                 <td><?php echo $row['Tgl_otorisasi']?></td>
-                                <td>
-                                  <a href="approvehistory.php" class="btn btn-warning" style="display: block">Approve</a>
-                                </td> 
                             </tr>
                         <?php } ?>
                     <?php } ?>

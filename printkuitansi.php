@@ -58,7 +58,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a class="btn btn-primary" href="addprintkuitansi.php">Add Data Print Kuitansi</a>
+                <a class="btn btn-primary" href="addprintkuitansi.php" style="display:block">Add Data Print Kuitansi</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -73,6 +73,7 @@
                     <th>Category Tempat</th>
                     <th>Tanggal Bayar</th>
                     <th>Action</th>
+                    <th>Approval</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -88,9 +89,12 @@
                                 <td><?php echo $row['Category_Tempat']?></td>
                                 <td><?php echo $row['Tgl_Byr']?></td>
                                 <td>
-                                    <a href="updatedelete/updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> | 
-                                    <a href="updatedelete/updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                                    <a href="updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> | 
+                                    <a href="updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
                                 </td> 
+                                <td>
+                                  <a href="approvehistory.php" class="btn btn-warning" style="display: block">Approve</a>
+                                </td>
                             </tr>
                         <?php } ?>
                     <?php } ?>

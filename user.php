@@ -81,8 +81,8 @@
                                 <td><?php echo $row['pinUser']?></td>
                                 <td><?php echo $row['roleUser']?></td>
                                 <td>
-                                    <a href="updatedelete/updatedeleteuser.php?iduser=<?php echo $row['idUser'] ?>"><i class="fas fa-edit"></i></a> | 
-                                    <a href="updatedelete/updatedeleteuser.php?iduserhapus=<?php echo $row['idUser'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                                    <a href="updatedeleteuser.php?iduser=<?php echo $row['idUser'] ?>"><i class="fas fa-edit"></i></a> | 
+                                    <a href="updatedeleteuser.php?iduserhapus=<?php echo $row['idUser'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
                                 </td> 
                             </tr>
                         <?php } ?>

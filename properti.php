@@ -75,8 +75,8 @@
                             <tr>
                                 <td><?php echo $row['lokasiKos']?></td>
                                 <td>
-                                    <a href="updatedelete/updatedeleteproperti.php?lokasikos=<?php echo $row['lokasiKos'] ?>"><i class="fas fa-edit"></i></a> | 
-                                    <a href="updatedelete/updatedeleteproperti.php?lokasikoshapus=<?php echo $row['lokasiKos'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                                    <a href="updatedeleteproperti.php?lokasikos=<?php echo $row['lokasiKos'] ?>"><i class="fas fa-edit"></i></a> | 
+                                    <a href="updatedeleteproperti.php?lokasikoshapus=<?php echo $row['lokasiKos'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
                                 </td> 
                             </tr>
                         <?php } ?>

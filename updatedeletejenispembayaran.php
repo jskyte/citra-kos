@@ -1,18 +1,24 @@
 <?php 
     include 'components/config.php';
 
-    if(isset($_POST['submit'])) {
-      $idUser = $_REQUEST["inputIdUser"];
-      $namaUser = $_REQUEST["inputNamaUser"];
-      $pinUser = $_REQUEST["inputPinUser"];
-      $roleUser = $_REQUEST["inputRoleUser"];
+    $query = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
-  
-      mysqli_query($connection, "INSERT INTO user VALUES ('$idUser', '$namaUser', '$pinUser', '$roleUser')");
-  
-  
-      header("location:user.php");
+    if(isset($_POST['submit'])) {
+        $JenisPembId = $_REQUEST["editJenisPembId"];
+        $JenisPemb = $_REQUEST["editJenisPemb"];
+
+        mysqli_query($connection, "UPDATE jenispembayaran SET jenisPemb = '$JenisPemb' WHERE jenisPemb = '$JenisPembId'");
+        header("location:jenispembayaran.php");
     } 
+    else if (isset($_GET["jenispembhapus"])) {
+        $JenisPemb = $_GET["jenispembhapus"];
+        mysqli_query($connection, "DELETE FROM jenispembayaran WHERE jenisPemb = '$JenisPemb'");
+        header("location:jenispembayaran.php");
+    }
+
+    $JenisPembId = $_GET["jenispemb"];
+    $edit = mysqli_query($connection, "SELECT * FROM jenispembayaran WHERE jenisPemb = '$JenisPembId'");
+    $row_edit = mysqli_fetch_array($edit);
 
 ?>
 
@@ -46,12 +52,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manajemen User</h1>
+            <h1 class="m-0 text-dark">Update Jenis Pembayaran</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manajemen User</li>
+              <li class="breadcrumb-item active">Update Jenis Pembayaran</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -66,39 +72,23 @@
           <div class="col-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambahkan Data User</h3>
+                <h3 class="card-title">Ubah Jenis Pembayaran</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="iduser">ID User</label>
-                    <input type="text" class="form-control" id="iduser" name="inputIdUser" placeholder="Enter ID User">
+                    <label for="jenispembayaran">Jenis Pembayaran</label>
+                    <input type="text" class="form-control" id="jenispembayaran" name="editJenisPemb" value="<?php echo $row_edit['jenisPemb'] ?>">
                   </div>
-                  <div class="form-group">
-                    <label for="namaUser">Nama User</label>
-                    <input type="text" class="form-control" id="namaUser" name="inputNamaUser" placeholder="Enter Nama User">
-                  </div>
-                  <div class="form-group">
-                    <label for="pinUser">PIN User</label>
-                    <input type="number" class="form-control" id="pinUser" name="inputPinUser" placeholder="Enter PIN User">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-group">
-                        <label>Role User</label>
-                        <select class="form-control" name="inputRoleUser"> 
-                          <option value="Owner">Owner</option>
-                          <option value="Kasir">Kasir</option>
-                        </select>
-                  </div>
-
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                  <a href="user.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
+                  <input type="hidden" name="editJenisPembId" value="<?php echo $row_edit["jenisPemb"]?>">
+                  <a href="jenispembayaran.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
                 </div>
               </form>
             </div>

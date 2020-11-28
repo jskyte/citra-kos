@@ -1,18 +1,26 @@
 <?php 
     include 'components/config.php';
 
-    if(isset($_POST['submit'])) {
-      $idUser = $_REQUEST["inputIdUser"];
-      $namaUser = $_REQUEST["inputNamaUser"];
-      $pinUser = $_REQUEST["inputPinUser"];
-      $roleUser = $_REQUEST["inputRoleUser"];
+    $query = mysqli_query($connection, "SELECT * FROM user");
 
-  
-      mysqli_query($connection, "INSERT INTO user VALUES ('$idUser', '$namaUser', '$pinUser', '$roleUser')");
-  
-  
-      header("location:user.php");
+    if(isset($_POST['submit'])) {
+        $idUser = $_REQUEST["editIdUser"];
+        $namaUser = $_REQUEST["editNamaUser"];
+        $pinUser = $_REQUEST["editPinUser"];
+        $roleUser = $_REQUEST["editRoleUser"];
+
+        mysqli_query($connection, "UPDATE user SET namaUser = '$namaUser', pinUser = '$pinUser', roleUser = '$roleUser' WHERE idUser = '$idUser'");
+        header("location:user.php");
     } 
+    else if (isset($_GET["iduserhapus"])) {
+        $idUser = $_GET["iduserhapus"];
+        mysqli_query($connection, "DELETE FROM user WHERE idUser = '$idUser'");
+        header("location:user.php");
+    }
+
+    $idUser = $_GET["iduser"];
+    $edit = mysqli_query($connection, "SELECT * FROM user WHERE idUser = '$idUser'");
+    $row_edit = mysqli_fetch_array($edit);
 
 ?>
 
@@ -66,28 +74,24 @@
           <div class="col-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambahkan Data User</h3>
+                <h3 class="card-title">Ubah Data User</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="iduser">ID User</label>
-                    <input type="text" class="form-control" id="iduser" name="inputIdUser" placeholder="Enter ID User">
-                  </div>
-                  <div class="form-group">
                     <label for="namaUser">Nama User</label>
-                    <input type="text" class="form-control" id="namaUser" name="inputNamaUser" placeholder="Enter Nama User">
+                    <input type="text" class="form-control" id="namaUser" name="editNamaUser" value="<?php echo $row_edit['namaUser'] ?>">
                   </div>
                   <div class="form-group">
                     <label for="pinUser">PIN User</label>
-                    <input type="number" class="form-control" id="pinUser" name="inputPinUser" placeholder="Enter PIN User">
+                    <input type="number" class="form-control" id="pinUser" name="editPinUser" value="<?php echo $row_edit['pinUser'] ?>">
                   </div>
                   <div class="form-group">
                     <div class="form-group">
                         <label>Role User</label>
-                        <select class="form-control" name="inputRoleUser"> 
+                        <select class="form-control" name="editRoleUser" value="<?php echo $row_edit['roleUser'] ?>"> 
                           <option value="Owner">Owner</option>
                           <option value="Kasir">Kasir</option>
                         </select>
@@ -98,6 +102,7 @@
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                  <input type="hidden" name="editIdUser" value="<?php echo $row_edit["idUser"]?>">
                   <a href="user.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
                 </div>
               </form>
