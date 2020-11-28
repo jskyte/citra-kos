@@ -1,5 +1,10 @@
 <?php 
     include 'components/config.php';
+    ob_start();
+    session_start();
+    if (!isset($_SESSION['idUser'])) {
+      header("location:login.php");
+    }
 
     $query = mysqli_query($connection, "SELECT * FROM hstry_data_print_kuitansi");
 
@@ -23,6 +28,9 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  
+  <link rel="stylesheet" href="assets/css/custom.style.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -130,3 +138,8 @@
 <script src="assets/js/datatable.js"></script>
 </body>
 </html>
+
+<?php
+mysqli_close($connection);
+ob_end_flush();
+?>

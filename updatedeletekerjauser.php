@@ -1,5 +1,10 @@
 <?php 
     include 'components/config.php';
+    ob_start();
+    session_start();
+    if (!isset($_SESSION['idUser'])) {
+      header("location:login.php");
+    }
 
     $query = mysqli_query($connection, "SELECT * FROM user");
     $query2 = mysqli_query($connection, "SELECT * FROM lokasiproperti");
@@ -144,3 +149,7 @@
 
 </body>
 </html>
+<?php
+mysqli_close($connection);
+ob_end_flush();
+?>

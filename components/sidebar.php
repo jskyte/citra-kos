@@ -26,7 +26,6 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Pengelolaan Kuitansi
                 <i class="right fas fa-angle-left"></i>
@@ -35,19 +34,19 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="printkuitansi.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-receipt nav-icon"></i>
                   <p>Data Print Kuitansi</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="historykuitansi.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-file-invoice nav-icon"></i>
                   <p>History Print Kuitansi</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="jenispembayaran.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-person-booth nav-icon"></i>
                   <p>Jenis Pembayaran</p>
                 </a>
               </li>
@@ -56,7 +55,6 @@
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Pengelolaan User
                 <i class="right fas fa-angle-left"></i>
@@ -65,23 +63,31 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="user.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-users nav-icon"></i>
                   <p>Manajemen User</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="properti.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-building nav-icon"></i>
                   <p>Lokasi Properti</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="kerjauser.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-street-view nav-icon"></i>
                   <p>Lokasi Kerja User</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+              <p>
+                Log Out
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

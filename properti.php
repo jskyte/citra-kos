@@ -1,5 +1,10 @@
 <?php 
     include 'components/config.php';
+    ob_start();
+    session_start();
+    if (!isset($_SESSION['idUser'])) {
+      header("location:login.php");
+    }
 
     $query = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
@@ -23,6 +28,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="assets/css/custom.style.css">
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -58,7 +65,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a class="btn btn-primary" href="addproperti.php">Add Properti</a>
+                <a class="btn btn-primary ctm-responsive-btn" href="addproperti.php">Add Properti</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -124,3 +131,7 @@
 <script src="assets/js/datatable.js"></script>
 </body>
 </html>
+<?php
+mysqli_close($connection);
+ob_end_flush();
+?>
