@@ -58,7 +58,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a class="btn btn-primary" href="addjenispembayaran.php">Add Data Print Kuitansi</a>
+                <a class="btn btn-primary" href="addprintkuitansi.php">Add Data Print Kuitansi</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -77,12 +77,13 @@
                   </thead>
                   <tbody>
                     <?php if(mysqli_num_rows($query) > 0) { ?>
-                        <?php while($row = mysqli_fetch_array($query)) { ?>
+                        <?php while($row = mysqli_fetch_array($query)) { 
+                            $harga=number_format($row["Harga"],0,",",".");?>
                             <tr>
                                 <td><?php echo $row['No_Kamar']?></td>
                                 <td><?php echo $row['Nama']?></td>
                                 <td><?php echo $row['Pembayaran']?></td>
-                                <td><?php echo $row['Harga']?></td>
+                                <td>Rp. <?php echo $harga?></td>
                                 <td><?php echo $row['Tgl_Kui']?></td>
                                 <td><?php echo $row['Category_Tempat']?></td>
                                 <td><?php echo $row['Tgl_Byr']?></td>

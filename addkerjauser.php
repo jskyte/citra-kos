@@ -1,18 +1,16 @@
 <?php 
     include 'components/config.php';
 
-    if(isset($_POST['submit'])) {
-      $idUser = $_REQUEST["inputIdUser"];
-      $namaUser = $_REQUEST["inputNamaUser"];
-      $pinUser = $_REQUEST["inputPinUser"];
-      $roleUser = $_REQUEST["inputRoleUser"];
+    $query = mysqli_query($connection, "SELECT * FROM user");
+    $query2 = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
-  
-      mysqli_query($connection, "INSERT INTO user VALUES ('$idUser', '$namaUser', '$pinUser', '$roleUser')");
-  
-  
-      header("location:user.php");
-    } 
+    if(isset($_POST['submit'])) {
+        $idUser = $_REQUEST["inputIdUser"];
+        $lokasiKerja = $_REQUEST["inputLokasiKerja"];
+
+        mysqli_query($connection, "INSERT INTO lokasikerjauser VALUES ('$idUser', '$lokasiKerja')");
+        header("location:kerjauser.php");
+      }
 
 ?>
 
@@ -31,7 +29,6 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -46,12 +43,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manajemen User</h1>
+            <h1 class="m-0 text-dark">Lokasi Kerja User</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manajemen User</li>
+              <li class="breadcrumb-item active">Lokasi Kerja User</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -66,39 +63,45 @@
           <div class="col-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambahkan Data User</h3>
+                <h3 class="card-title">Tambahkan Lokasi Kerja User</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
+              <form role="form" method="POST">
                 <div class="card-body">
+
                   <div class="form-group">
                     <label for="iduser">ID User</label>
-                    <input type="text" class="form-control" id="iduser" name="inputIdUser" placeholder="Enter ID User">
-                  </div>
-                  <div class="form-group">
-                    <label for="namaUser">Nama User</label>
-                    <input type="text" class="form-control" id="namaUser" name="inputNamaUser" placeholder="Enter Nama User">
-                  </div>
-                  <div class="form-group">
-                    <label for="pinUser">PIN User</label>
-                    <input type="number" class="form-control" id="pinUser" name="inputPinUser" placeholder="Enter PIN User">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-group">
-                        <label>Role User</label>
-                        <select class="form-control" name="inputRoleUser"> 
-                          <option value="Owner">Owner</option>
-                          <option value="Kasir">Kasir</option>
-                        </select>
+                    <select name="inputIdUser" class="form-control" id="iduser">
+                      <option value="NULL">Pilih User</option>
+                      <?php if (mysqli_num_rows($query) > 0) {?>
+                      <?php while($row = mysqli_fetch_array($query)) {?>
+                        <option value="<?php echo $row["idUser"]?>">
+                        <?php echo $row["namaUser"];?>
+                        </option>
+                      <?php }?>
+                      <?php }?>
+                    </select>
                   </div>
 
-                </div>
+                  <div class="form-group">
+                    <label for="lokasikerja">Lokasi Kerja</label>
+                    <select name="inputLokasiKerja" class="form-control" id="lokasikerja">
+                      <option value="NULL">Pilih Lokasi Kerja</option>
+                      <?php if (mysqli_num_rows($query2) > 0) {?>
+                      <?php while($row = mysqli_fetch_array($query2)) {?>
+                        <option value="<?php echo $row["lokasiKos"]?>">
+                        <?php echo $row["lokasiKos"];?>
+                        </option>
+                      <?php }?>
+                      <?php }?>
+                    </select>
+                  </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                  <a href="properti.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
+                  <a href="kerjauser.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
                 </div>
               </form>
             </div>
@@ -121,6 +124,5 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-
 </body>
 </html>

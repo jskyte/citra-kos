@@ -2,17 +2,11 @@
     include 'components/config.php';
 
     if(isset($_POST['submit'])) {
-      $idUser = $_REQUEST["inputIdUser"];
-      $namaUser = $_REQUEST["inputNamaUser"];
-      $pinUser = $_REQUEST["inputPinUser"];
-      $roleUser = $_REQUEST["inputRoleUser"];
+        $LokasiProperti = $_REQUEST["inputLokasiProperti"];
 
-  
-      mysqli_query($connection, "INSERT INTO user VALUES ('$idUser', '$namaUser', '$pinUser', '$roleUser')");
-  
-  
-      header("location:user.php");
-    } 
+        mysqli_query($connection, "INSERT INTO lokasiproperti VALUES ('$LokasiProperti')");
+        header("location:properti.php");
+      } 
 
 ?>
 
@@ -31,7 +25,6 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
@@ -46,12 +39,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manajemen User</h1>
+            <h1 class="m-0 text-dark">Lokasi Properti</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manajemen User</li>
+              <li class="breadcrumb-item active">Lokasi Properti</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -66,34 +59,16 @@
           <div class="col-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambahkan Data User</h3>
+                <h3 class="card-title">Tambahkan Lokasi Properti</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="iduser">ID User</label>
-                    <input type="text" class="form-control" id="iduser" name="inputIdUser" placeholder="Enter ID User">
+                    <label for="lokasiproperti">Lokasi Properti</label>
+                    <input type="text" class="form-control" id="lokasiproperti" name="inputLokasiProperti" placeholder="Enter Lokasi Properti">
                   </div>
-                  <div class="form-group">
-                    <label for="namaUser">Nama User</label>
-                    <input type="text" class="form-control" id="namaUser" name="inputNamaUser" placeholder="Enter Nama User">
-                  </div>
-                  <div class="form-group">
-                    <label for="pinUser">PIN User</label>
-                    <input type="number" class="form-control" id="pinUser" name="inputPinUser" placeholder="Enter PIN User">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-group">
-                        <label>Role User</label>
-                        <select class="form-control" name="inputRoleUser"> 
-                          <option value="Owner">Owner</option>
-                          <option value="Kasir">Kasir</option>
-                        </select>
-                  </div>
-
-                </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
@@ -121,6 +96,5 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-
 </body>
 </html>

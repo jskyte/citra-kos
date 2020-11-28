@@ -1,7 +1,7 @@
 <?php 
     include 'components/config.php';
 
-    $query = mysqli_query($connection, "SELECT * FROM lokasikerjauser");
+    $query = mysqli_query($connection, "SELECT l.idUser, l.lokasiKos, u.namaUser as nama FROM lokasikerjauser l JOIN user u ON (u.idUser = l.idUser)");
 
 ?>
 
@@ -74,7 +74,7 @@
                     <?php if(mysqli_num_rows($query) > 0) { ?>
                         <?php while($row = mysqli_fetch_array($query)) { ?>
                             <tr>
-                                <td><?php echo $row['idUser']?></td>
+                                <td><?php echo $row['nama']?></td>
                                 <td><?php echo $row['lokasiKos']?></td>
                                 <td>
                                     <a href="updatedelete/updatedeletekerjauser.php?iduser=<?php echo $row['idUser'] ?>&lokasikos=<?php echo $row['lokasiKos'] ?>"><i class="fas fa-edit"></i></a> | 
