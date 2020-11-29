@@ -9,20 +9,20 @@
     $query = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
     if(isset($_POST['submit'])) {
-        $JenisPembId = $_REQUEST["editJenisPembId"];
+        $JenisPembId = $_REQUEST["editIdPembayaran"];
         $JenisPemb = $_REQUEST["editJenisPemb"];
 
-        mysqli_query($connection, "UPDATE jenispembayaran SET jenisPemb = '$JenisPemb' WHERE jenisPemb = '$JenisPembId'");
+        mysqli_query($connection, "UPDATE jenispembayaran SET jenisPemb = '$JenisPemb' WHERE idPembayaran = '$JenisPembId'");
         header("location:jenispembayaran.php");
     } 
     else if (isset($_GET["jenispembhapus"])) {
         $JenisPemb = $_GET["jenispembhapus"];
-        mysqli_query($connection, "DELETE FROM jenispembayaran WHERE jenisPemb = '$JenisPemb'");
+        mysqli_query($connection, "DELETE FROM jenispembayaran WHERE idPembayaran = '$JenisPemb'");
         header("location:jenispembayaran.php");
     }
 
     $JenisPembId = $_GET["jenispemb"];
-    $edit = mysqli_query($connection, "SELECT * FROM jenispembayaran WHERE jenisPemb = '$JenisPembId'");
+    $edit = mysqli_query($connection, "SELECT * FROM jenispembayaran WHERE idPembayaran = '$JenisPembId'");
     $row_edit = mysqli_fetch_array($edit);
 
 ?>
@@ -92,7 +92,7 @@
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                  <input type="hidden" name="editJenisPembId" value="<?php echo $row_edit["jenisPemb"]?>">
+                  <input type="hidden" name="editIdPembayaran" value="<?php echo $row_edit["idPembayaran"]?>">
                   <a href="jenispembayaran.php" class="btn btn-warning" style="margin-left: 20px">Cancel</a>
                 </div>
               </form>

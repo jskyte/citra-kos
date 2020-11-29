@@ -9,7 +9,7 @@ if (!isset($_SESSION['idUser'])) {
 if (isset($_POST['submit'])) {
   $jenisPembayaran = $_REQUEST["inputJenisPembayaran"];
 
-  mysqli_query($connection, "INSERT INTO jenispembayaran VALUES ('$jenisPembayaran')");
+  mysqli_query($connection, "INSERT INTO jenispembayaran(jenisPemb) VALUES ('$jenisPembayaran')");
   header("location:jenispembayaran.php");
 }
 
