@@ -85,8 +85,8 @@ $query = mysqli_query($connection, "SELECT * FROM jenispembayaran");
                           <tr>
                             <td><?php echo $row['jenisPemb'] ?></td>
                             <td>
-                              <a href="updatedeletejenispembayaran.php?jenispemb=<?php echo $row['jenisPemb'] ?>"><i class="fas fa-edit"></i></a> |
-                              <a href="updatedeletejenispembayaran.php?jenispembhapus=<?php echo $row['jenisPemb'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                              <a href="updatedeletejenispembayaran.php?jenispemb=<?php echo $row['idPembayaran'] ?>"><i class="fas fa-edit"></i></a> |
+                              <a href="updatedeletejenispembayaran.php?jenispembhapus=<?php echo $row['idPembayaran'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
                             </td>
                           </tr>
                         <?php } ?>

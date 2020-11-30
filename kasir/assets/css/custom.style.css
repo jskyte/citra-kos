@@ -1,0 +1,14 @@
+@media (max-width: 768px) {
+.ctm-responsive-btn {
+    display: block;
+    padding: 15px;
+    font-size: 1.5rem;
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: center;
+}
+
+}

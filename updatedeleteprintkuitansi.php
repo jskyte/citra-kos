@@ -6,7 +6,7 @@
       header("location:login.php");
     }
 
-    $query = mysqli_query($connection, "SELECT * FROM jenispembayaran");
+    
     $query2 = mysqli_query($connection, "SELECT * FROM lokasiproperti");
 
     if(isset($_POST['submit'])) {
@@ -27,9 +27,10 @@
     }
 
     $noKamar = $_GET["nokamar"];
-    $edit = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$noKamar'");
+    $edit = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (jenispembayaran.idPembayaran = data_print_kuitansi.idPembayaran) WHERE No_Kamar = '$noKamar'");
     $row_edit = mysqli_fetch_array($edit);
-
+    $query = mysqli_query($connection, "SELECT * from jenispembayaran WHERE idPembayaran != (SELECT idPembayaran from data_print_kuitansi WHERE No_Kamar = '$noKamar')");
+    
 ?>
 
 <!DOCTYPE html>
@@ -93,12 +94,12 @@
                     <input type="text" class="form-control" id="nama" name="editNama" value="<?php echo $row_edit['Nama'] ?>">
                   </div>
                   <div class="form-group">
-                  <label for="editpembayaran">User</label>
+                  <label for="editpembayaran">Jenis Pembayaran</label>
                   <select name="editJenisPembayaran" class="form-control" id="editpembayaran">
-                    <option value="<?php echo $row_edit['Pembayaran'] ?>"><?php echo $row_edit['Pembayaran'] ?></option>
+                    <option value="<?php echo $row_edit['idPembayaran'] ?>"><?php echo $row_edit['jenisPemb'] ?></option>
                       <?php if (mysqli_num_rows($query) > 0) {?>
                         <?php while($row = mysqli_fetch_array($query)) {?>
-                          <option value="<?php echo $row["jenisPemb"]?>">
+                          <option value="<?php echo $row["idPembayaran"]?>">
                             <?php echo $row["jenisPemb"];?>
                           </option>
                         <?php }?>
