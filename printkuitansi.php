@@ -9,28 +9,28 @@ if (!isset($_SESSION['idUser'])) {
 $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (jenispembayaran.idPembayaran = data_print_kuitansi.idPembayaran)");
 
 
-if (isset($_POST['submit'])) {
-  $checkbox = $_POST['selectedData'];
-  for($i = 0; $i < sizeof($checkbox); $i++) {
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
+// if (isset($_POST['submit'])) {
+//   $checkbox = $_POST['selectedData'];
+//   for ($i = 0; $i < sizeof($checkbox); $i++) {
+//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
 
-    $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
-    $data = mysqli_fetch_array($querycheck);
-    $NoKamar = $data['No_Kamar'];
-    $Nama = $data['Nama'];
-    $Pembayaran = $data['idPembayaran'];
-    $Harga = $data['Harga'];
-    $TglKui = $data['Tgl_Kui'];
-    $Category = $data['Category_Tempat'];
-    $TglApp = $data[''];
-    $TglByr = $data['Tgl_Byr'];
+//     $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
+//     $data = mysqli_fetch_array($querycheck);
+//     $NoKamar = $data['No_Kamar'];
+//     $Nama = $data['Nama'];
+//     $Pembayaran = $data['idPembayaran'];
+//     $Harga = $data['Harga'];
+//     $TglKui = $data['Tgl_Kui'];
+//     $Category = $data['Category_Tempat'];
+//     $TglApp = $data[''];
+//     $TglByr = $data['Tgl_Byr'];
 
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-    mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
+//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
+//     mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
 
-    header('location:printkuitansi.php');
-  }
-}
+//     header('location:printkuitansi.php');
+//   }
+// }
 
 ?>
 
@@ -95,90 +95,71 @@ if (isset($_POST['submit'])) {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                <form role="form" enctype="multipart/form-data" method="POST">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th style="width: 5px">No.</th>
-                        <th style="width: 5px"></th>
-                        <th style="width: 20px">Nomor Kamar</th>
-                        <th style="width: 20px">Nama</th>
-                        <th>Harga</th>
-                        <th>Tanggal Kuitansi</th>
-                        <th>Category Tempat</th>
-                        <th>Tanggal Bayar</th>
-                        <th>Action</th>
-                        <th>Approval</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php if (mysqli_num_rows($query) > 0) { $nomor = 1 ?>
-                        <?php while ($row = mysqli_fetch_array($query)) {
-                          $harga = number_format($row["Harga"], 0, ",", ".");
-                           ?>
-                          <tr>
-                            <td><?php echo $nomor?></td>
-                            <td>
-                            <?php 
-                              if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                -
-                              <?php } else if($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
-                              <?php } else if($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                -
-                              <?php } ?>
-                            </td>
-                            <td><?php echo $row['No_Kamar'] ?></td>
-                            <td><?php echo $row['Nama'] ?></td>
-                            <td>Rp. <?php echo $harga ?></td>
-                            <td><?php echo $row['Tgl_Kui'] ?></td>
-                            <td><?php echo $row['Category_Tempat'] ?></td>
-                            <td><?php echo $row['Tgl_Byr'] ?></td>
-                            <td>
-                              <a href="updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> |
-                              <a href="updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
-                            </td>
-                            <td>
-                              <?php 
-                              if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                <small class="badge badge-warning">Waiting for Payment</small>
-                              <?php } else if($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                <a href="approvehistory.php?approveid=<?php echo $row['No_Kamar'] ?>" class="btn btn-primary" style="display: block">Approve</a>
-                              <?php } else if($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                <small class="badge badge-success">Approved</small>
-                              <?php } ?>
-                            </td>
-                          </tr>
-                        <?php $nomor++; }  ?>
-                      <?php } ?>
-                  </table>
-                  
+                  <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 5px">No.</th>
+                          <th style="width: 5px"></th>
+                          <th style="width: 20px">Nomor Kamar</th>
+                          <th style="width: 20px">Nama</th>
+                          <th>Harga</th>
+                          <th>Tanggal Kuitansi</th>
+                          <th>Category Tempat</th>
+                          <th>Tanggal Bayar</th>
+                          <th>Action</th>
+                          <th>Approval</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php if (mysqli_num_rows($query) > 0) {
+                          $nomor = 1 ?>
+                          <?php while ($row = mysqli_fetch_array($query)) {
+                            $harga = number_format($row["Harga"], 0, ",", ".");
+                          ?>
+                            <tr>
+                              <td><?php echo $nomor ?></td>
+                              <td>
+                                <?php
+                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  -
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
+                                  -
+                                <?php } ?>
+                              </td>
+                              <td><?php echo $row['No_Kamar'] ?></td>
+                              <td><?php echo $row['Nama'] ?></td>
+                              <td>Rp. <?php echo $harga ?></td>
+                              <td><?php echo $row['Tgl_Kui'] ?></td>
+                              <td><?php echo $row['Category_Tempat'] ?></td>
+                              <td><?php echo $row['Tgl_Byr'] ?></td>
+                              <td>
+                                <a href="updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> |
+                                <a href="updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
+                              </td>
+                              <td>
+                                <?php
+                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  <small class="badge badge-warning">Waiting for Payment</small>
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  <a href="approvehistory.php?approveid=<?php echo $row['No_Kamar'] ?>" class="btn btn-primary" style="display: block">Approve</a>
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
+                                  <small class="badge badge-success">Approved</small>
+                                <?php } ?>
+                              </td>
+                            </tr>
+                          <?php $nomor++;
+                          }  ?>
+                        <?php } ?>
+                    </table>
+
                 </div>
-                <button type="button" id="button1" class="btn btn-primary" data-toggle="modal" data-target="#modal-confirm" style="display:block">Approve</button>
-                <div class="modal fade" id="modal-confirm">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Konfirmasi Kuitansi</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p id="checkid"></p>
-                      </div>
-                      <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button  type="submit" class="btn btn-primary" name="submit">Konfirmasi</button>
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
+                <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
                 </form>
                 <!-- /.card-body -->
-                
+
               </div>
               <!-- /.card -->
             </div>
@@ -219,17 +200,7 @@ if (isset($_POST['submit'])) {
   <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="assets/js/datatable.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#button1").click(function() {
-        var p = $("#modal-confirm #checkid");
-        $(p).html("Anda Telah Memilih:");
-        $.each($("input[name='selectedData[]']:checked"), function() {
-          $(p).html($(p).html() + '<br>' + $(this).val());
-        });
-      });
-    });
-  </script>
+
 </body>
 
 </html>
