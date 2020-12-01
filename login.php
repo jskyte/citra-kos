@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control"  placeholder="PIN" name="loginPin">
+          <input type="password" class="form-control"  placeholder="PIN" name="loginPin" pattern="[0-9]*" inputmode="numeric">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

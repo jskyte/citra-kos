@@ -33,7 +33,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="printkuitansi.php" class="nav-link">
+                <a href="index.php" class="nav-link">
                   <i class="fas fa-receipt nav-icon"></i>
                   <p>Data Print Kuitansi</p>
                 </a>

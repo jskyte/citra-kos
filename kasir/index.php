@@ -14,28 +14,28 @@ JOIN jenispembayaran j ON (d.idPembayaran = j.idPembayaran)
 WHERE l.idUser = '$idUser'");
 
 
-if (isset($_POST['submit'])) {
-  $checkbox = $_POST['selectedData'];
-  for ($i = 0; $i < sizeof($checkbox); $i++) {
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
+// if (isset($_POST['submit'])) {
+//   $checkbox = $_POST['selectedData'];
+//   for ($i = 0; $i < sizeof($checkbox); $i++) {
+//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
 
-    $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
-    $data = mysqli_fetch_array($querycheck);
-    $NoKamar = $data['No_Kamar'];
-    $Nama = $data['Nama'];
-    $Pembayaran = $data['idPembayaran'];
-    $Harga = $data['Harga'];
-    $TglKui = $data['Tgl_Kui'];
-    $Category = $data['Category_Tempat'];
-    $TglApp = $data[''];
-    $TglByr = $data['Tgl_Byr'];
+//     $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
+//     $data = mysqli_fetch_array($querycheck);
+//     $NoKamar = $data['No_Kamar'];
+//     $Nama = $data['Nama'];
+//     $Pembayaran = $data['idPembayaran'];
+//     $Harga = $data['Harga'];
+//     $TglKui = $data['Tgl_Kui'];
+//     $Category = $data['Category_Tempat'];
+//     $TglApp = $data[''];
+//     $TglByr = $data['Tgl_Byr'];
 
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-    mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
+//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
+//     mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
 
-    header('location:printkuitansi.php');
-  }
-}
+//     header('location:printkuitansi.php');
+//   }
+// }
 
 ?>
 
@@ -97,12 +97,11 @@ if (isset($_POST['submit'])) {
               <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <form role="form" enctype="multipart/form-data" method="POST">
+                  <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
                     <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th style="width: 5px">No.</th>
-                          <th style="width: 5px"></th>
                           <th style="width: 20px">Nomor Kamar</th>
                           <th style="width: 20px">Nama</th>
                           <th>Harga</th>
@@ -121,17 +120,16 @@ if (isset($_POST['submit'])) {
                           ?>
                             <tr>
                               <td><?php echo $nomor ?></td>
-                              <td>
-                                <?php
+                            
+                              <td><?php
                                 if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  -
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  
                                   <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  -
                                 <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
                                   -
-                                <?php } ?>
-                              </td>
-                              <td><?php echo $row['No_Kamar'] ?></td>
+                                <?php } ?><?php echo $row['No_Kamar'] ?></td>
                               <td><?php echo $row['Nama'] ?></td>
                               <td>Rp. <?php echo $harga ?></td>
                               <td><?php echo $row['Tgl_Kui'] ?></td>
@@ -144,9 +142,10 @@ if (isset($_POST['submit'])) {
                               <td>
                                 <?php
                                 if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  <small class="badge badge-warning">Waiting for Payment</small>
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  
                                   <a href="approvehistory.php?approveid=<?php echo $row['No_Kamar'] ?>" class="btn btn-primary" style="display: block">Approve</a>
+                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
+                                  <small class="badge badge-warning">Waiting for Approval</small>
                                 <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
                                   <small class="badge badge-success">Approved</small>
                                 <?php } ?>
@@ -158,47 +157,7 @@ if (isset($_POST['submit'])) {
                     </table>
 
                 </div>
-                <button type="button" id="button1" class="btn btn-primary" data-toggle="modal" data-target="#modal-confirm" style="display:block">Approve</button>
-
-                <div class="modal fade" id="modal-confirm">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Konfirmasi Kuitansi</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p id="checkid"></p>
-                        <!-- <div class="card-body table-responsive p-0">
-                          <table class="table table-bordered text-nowrap">
-                            <thead>
-                              <tr>
-                                <th>No. Kamar</th>
-                                <th>Nama</th>
-                                <th>Harga</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>B Extra</td>
-                                <td>Jamal</td>
-                                <td>Rp. 425.000</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div> -->
-                      </div>
-                      <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="submit">Konfirmasi</button>
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
+                <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
                 </form>
                 <!-- /.card-body -->
 
@@ -242,17 +201,7 @@ if (isset($_POST['submit'])) {
   <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="assets/js/datatable.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#button1").click(function() {
-        var p = $("#modal-confirm #checkid");
-        $(p).html("Anda Telah Memilih:");
-        $.each($("input[name='selectedData[]']:checked"), function() {
-          $(p).html($(p).html() + '<br>' + $(this).val());
-        });
-      });
-    });
-  </script>
+
 </body>
 
 </html>
