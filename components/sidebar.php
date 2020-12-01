@@ -4,7 +4,7 @@
     <a href="index.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light"><b>Citra</b> Kos</span>
+      <span class="brand-text font-weight-light">Welcome, <?php echo $_SESSION['namaUser']?></span>
     </a>
 
     <!-- Sidebar -->
@@ -39,11 +39,18 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="historytagihan.php" class="nav-link">
+                  <i class="fas fa-history nav-icon"></i>
+                  <p>Histori Tagihan</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="historykuitansi.php" class="nav-link">
                   <i class="fas fa-file-invoice nav-icon"></i>
                   <p>History Print Kuitansi</p>
                 </a>
               </li>
+              
               <li class="nav-item">
                 <a href="jenispembayaran.php" class="nav-link">
                   <i class="fas fa-person-booth nav-icon"></i>

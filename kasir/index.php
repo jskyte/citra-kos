@@ -98,18 +98,13 @@ WHERE l.idUser = '$idUser'");
                 <!-- /.card-header -->
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" style="table-layout: fixed; font-size: 3.8vw">
                       <thead>
                         <tr>
-                          <th style="width: 5px">No.</th>
-                          <th style="width: 20px">Nomor Kamar</th>
-                          <th style="width: 20px">Nama</th>
+                          <th style="width:30px"></th>
+                          <th >Nomor Kamar</th>
+                          <th >Nama</th>
                           <th>Harga</th>
-                          <th>Tanggal Kuitansi</th>
-                          <th>Category Tempat</th>
-                          <th>Tanggal Bayar</th>
-                          <th>Action</th>
-                          <th>Approval</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -119,8 +114,6 @@ WHERE l.idUser = '$idUser'");
                             $harga = number_format($row["Harga"], 0, ",", ".");
                           ?>
                             <tr>
-                              <td><?php echo $nomor ?></td>
-                            
                               <td><?php
                                 if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
                                   
@@ -129,27 +122,10 @@ WHERE l.idUser = '$idUser'");
                                   -
                                 <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
                                   -
-                                <?php } ?><?php echo $row['No_Kamar'] ?></td>
+                                <?php } ?></td>
+                              <td><?php echo $row['No_Kamar'] ?></td>
                               <td><?php echo $row['Nama'] ?></td>
                               <td>Rp. <?php echo $harga ?></td>
-                              <td><?php echo $row['Tgl_Kui'] ?></td>
-                              <td><?php echo $row['Category_Tempat'] ?></td>
-                              <td><?php echo $row['Tgl_Byr'] ?></td>
-                              <td>
-                                <a href="updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> |
-                                <a href="updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
-                              </td>
-                              <td>
-                                <?php
-                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  
-                                  <a href="approvehistory.php?approveid=<?php echo $row['No_Kamar'] ?>" class="btn btn-primary" style="display: block">Approve</a>
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  <small class="badge badge-warning">Waiting for Approval</small>
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                  <small class="badge badge-success">Approved</small>
-                                <?php } ?>
-                              </td>
                             </tr>
                           <?php $nomor++;
                           }  ?>

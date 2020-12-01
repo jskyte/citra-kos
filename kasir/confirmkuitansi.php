@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
     $TglByr = $data['Tgl_Byr'];
 
     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
+    mysqli_query($connection, "INSERT INTO hstry_data_tagihan VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$TglByr')");
 
     header('location:index.php');
   }

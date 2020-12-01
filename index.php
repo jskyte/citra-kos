@@ -4,6 +4,8 @@ ob_start();
 session_start();
 if (!isset($_SESSION['idUser'])) {
   header("location:login.php");
+} else if ($_SESSION['roleUser'] == "Kasir") {
+  header("location:kasir/index.php");
 }
 ?>
 
