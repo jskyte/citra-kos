@@ -11,7 +11,7 @@ $idUser = $_SESSION['idUser'];
 $query = mysqli_query($connection, "SELECT * FROM
 data_print_kuitansi d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat)
 JOIN jenispembayaran j ON (d.idPembayaran = j.idPembayaran)
-WHERE l.idUser = '$idUser'");
+WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
 
 ?>
 
@@ -74,7 +74,8 @@ WHERE l.idUser = '$idUser'");
                 <!-- /.card-header -->
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
-                    <table class="table table-bordered table-striped" style="table-layout: fixed; font-size: 3.8vw">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 3.8vw">
                       <thead>
                         <tr>
                           <th style="width:30px"></th>
@@ -110,7 +111,7 @@ WHERE l.idUser = '$idUser'");
                           }  ?>
                         <?php } ?>
                     </table>
-
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
                 </form>

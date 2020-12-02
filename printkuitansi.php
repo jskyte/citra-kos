@@ -6,7 +6,7 @@ if (!isset($_SESSION['idUser'])) {
   header("location:login.php");
 }
 
-$query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (jenispembayaran.idPembayaran = data_print_kuitansi.idPembayaran)");
+$query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (jenispembayaran.idPembayaran = data_print_kuitansi.idPembayaran) ORDER BY data_print_kuitansi.No_Kamar");
 
 ?>
 
