@@ -69,7 +69,8 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <div class="table-responsive">
+                <table class="table table-bordered text-nowrap">
                   <thead>
                   <tr>
                     <th>Nomor Kamar</th>
@@ -96,6 +97,7 @@
                         <?php } ?>
                     <?php } ?>
                 </table>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>

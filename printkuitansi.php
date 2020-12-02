@@ -8,30 +8,6 @@ if (!isset($_SESSION['idUser'])) {
 
 $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (jenispembayaran.idPembayaran = data_print_kuitansi.idPembayaran)");
 
-
-// if (isset($_POST['submit'])) {
-//   $checkbox = $_POST['selectedData'];
-//   for ($i = 0; $i < sizeof($checkbox); $i++) {
-//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
-
-//     $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
-//     $data = mysqli_fetch_array($querycheck);
-//     $NoKamar = $data['No_Kamar'];
-//     $Nama = $data['Nama'];
-//     $Pembayaran = $data['idPembayaran'];
-//     $Harga = $data['Harga'];
-//     $TglKui = $data['Tgl_Kui'];
-//     $Category = $data['Category_Tempat'];
-//     $TglApp = $data[''];
-//     $TglByr = $data['Tgl_Byr'];
-
-//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-//     mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
-
-//     header('location:printkuitansi.php');
-//   }
-// }
-
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +72,8 @@ $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenis
                 <!-- /.card-header -->
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
-                    <table id="example1" class="table table-bordered table-striped">
+                  <div class="table-responsive">
+                    <table class="table table-bordered text-nowrap">
                       <thead>
                         <tr>
                           <th style="width: 5px">No.</th>
@@ -106,9 +83,7 @@ $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenis
                           <th>Harga</th>
                           <th>Tanggal Kuitansi</th>
                           <th>Category Tempat</th>
-                          <th>Tanggal Bayar</th>
                           <th>Action</th>
-                          <th>Approval</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -119,42 +94,22 @@ $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenis
                           ?>
                             <tr>
                               <td><?php echo $nomor ?></td>
-                              <td>
-                                <?php
-                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  -
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                  -
-                                <?php } ?>
-                              </td>
+                              <td><input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>"></td>
                               <td><?php echo $row['No_Kamar'] ?></td>
                               <td><?php echo $row['Nama'] ?></td>
                               <td>Rp. <?php echo $harga ?></td>
                               <td><?php echo $row['Tgl_Kui'] ?></td>
                               <td><?php echo $row['Category_Tempat'] ?></td>
-                              <td><?php echo $row['Tgl_Byr'] ?></td>
                               <td>
                                 <a href="updatedeleteprintkuitansi.php?nokamar=<?php echo $row['No_Kamar'] ?>"><i class="fas fa-edit"></i></a> |
                                 <a href="updatedeleteprintkuitansi.php?nokamarhapus=<?php echo $row['No_Kamar'] ?>" onclick="return confirm ('Apakah Anda Yakin?')"><i class="fas fa-trash"></i></a>
-                              </td>
-                              <td>
-                                <?php
-                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  <small class="badge badge-warning">Waiting for Payment</small>
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  <a href="approvehistory.php?approveid=<?php echo $row['No_Kamar'] ?>" class="btn btn-primary" style="display: block">Approve</a>
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                  <small class="badge badge-success">Approved</small>
-                                <?php } ?>
                               </td>
                             </tr>
                           <?php $nomor++;
                           }  ?>
                         <?php } ?>
                     </table>
-
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
                 </form>

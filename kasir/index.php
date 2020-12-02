@@ -13,30 +13,6 @@ data_print_kuitansi d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat
 JOIN jenispembayaran j ON (d.idPembayaran = j.idPembayaran)
 WHERE l.idUser = '$idUser'");
 
-
-// if (isset($_POST['submit'])) {
-//   $checkbox = $_POST['selectedData'];
-//   for ($i = 0; $i < sizeof($checkbox); $i++) {
-//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
-
-//     $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
-//     $data = mysqli_fetch_array($querycheck);
-//     $NoKamar = $data['No_Kamar'];
-//     $Nama = $data['Nama'];
-//     $Pembayaran = $data['idPembayaran'];
-//     $Harga = $data['Harga'];
-//     $TglKui = $data['Tgl_Kui'];
-//     $Category = $data['Category_Tempat'];
-//     $TglApp = $data[''];
-//     $TglByr = $data['Tgl_Byr'];
-
-//     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Approve = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-//     mysqli_query($connection, "INSERT INTO hstry_data_print_kuitansi VALUES ('$NoKamar', '$Nama', '$Pembayaran', '$Harga', '$TglKui', '$Category', '$TglByr', SYSDATE())");
-
-//     header('location:printkuitansi.php');
-//   }
-// }
-
 ?>
 
 <!DOCTYPE html>
@@ -112,17 +88,20 @@ WHERE l.idUser = '$idUser'");
                           $nomor = 1 ?>
                           <?php while ($row = mysqli_fetch_array($query)) {
                             $harga = number_format($row["Harga"], 0, ",", ".");
+                            $noKam = $row['No_Kamar'];
+                            $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM hstry_data_tagihan WHERE No_Kamar = '$noKam'");
+                            $fetchvalid = mysqli_fetch_array($queryvalid);
                           ?>
                             <tr>
-                              <td><?php
-                                if ($row['Tgl_Byr'] == '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  
-                                  <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] == '0000-00-00') { ?>
-                                  -
-                                <?php } else if ($row['Tgl_Byr'] != '0000-00-00' && $row['Tgl_Approve'] != '0000-00-00') { ?>
-                                  -
-                                <?php } ?></td>
+
+                              <td>
+                                <?php if(isset($fetchvalid['No_Kamar'])) { ?>
+                                  <i class="fas fa-check"></i>
+                                <?php } else {?>
+                                <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
+                                <?php }?>                     
+                     
+                              </td>
                               <td><?php echo $row['No_Kamar'] ?></td>
                               <td><?php echo $row['Nama'] ?></td>
                               <td>Rp. <?php echo $harga ?></td>

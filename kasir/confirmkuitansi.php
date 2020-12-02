@@ -12,6 +12,7 @@ $subTotal = 0;
 
 if (isset($_POST['submit'])) {
   $checkbox = $_POST['checkboxData'];
+  $idUser = $_SESSION['idUser'];
   for ($i = 0; $i < sizeof($checkbox); $i++) {
     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
 
@@ -23,11 +24,9 @@ if (isset($_POST['submit'])) {
     $Harga = $data['Harga'];
     $TglKui = $data['Tgl_Kui'];
     $Category = $data['Category_Tempat'];
-    $TglApp = $data[''];
-    $TglByr = $data['Tgl_Byr'];
 
     mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-    mysqli_query($connection, "INSERT INTO hstry_data_tagihan VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$TglByr')");
+    mysqli_query($connection, "INSERT INTO hstry_data_tagihan VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser')");
 
     header('location:index.php');
   }
@@ -94,7 +93,8 @@ if (isset($_POST['submit'])) {
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <form role="form" enctype="multipart/form-data" method="POST">
-                                        <table class="table table-bordered table-striped">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-nowrap">
                                             <thead>
                                                 <tr>
                                                     <th style="display:none"></th>
@@ -102,17 +102,23 @@ if (isset($_POST['submit'])) {
                                                     <th>Nomor Kamar</th>
                                                     <th>Nama</th>
                                                     <th>Harga</th>
+                                                    <th>Pembayaran</th>
+                                                    <th>Tanggal Kuitansi</th>
+                                                    <th>Category Tempat</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $nomor = 1;
                                                 while ($i < sizeof($selectedData)) {
-                                                    $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$selectedData[$i]'");
+                                                    $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (data_print_kuitansi.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
 
                                                     $fetchData = mysqli_fetch_array($query);
                                                     $Nama = $fetchData['Nama'];
                                                     $Harga = $fetchData['Harga'];
                                                     $NoKamar = $fetchData['No_Kamar'];
+                                                    $Pembayaran = $fetchData['jenisPemb'];
+                                                    $TglKui = $fetchData['Tgl_Kui'];
+                                                    $CategoryTemp = $fetchData['Category_Tempat'];
                                                     $fHarga = number_format($Harga, 0, ",", ".");
                                                     $subTotal += $Harga;
                                                     $fSubTotal = number_format($subTotal, 0, ",", ".");
@@ -123,6 +129,9 @@ if (isset($_POST['submit'])) {
                                                         <td><?php echo $nomor ?></td>
                                                         <td><?php echo $NoKamar ?></td>
                                                         <td><?php echo $Nama ?></td>
+                                                        <td><?php echo $Pembayaran ?></td>
+                                                        <td><?php echo $TglKui ?></td>
+                                                        <td><?php echo $CategoryTemp ?></td>
                                                         <td>Rp. <?php echo $fHarga ?></td>
                                                     </tr>
                                                 <?php $nomor++;
@@ -132,11 +141,14 @@ if (isset($_POST['submit'])) {
                                                         <td style="display:none"></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td style="float:right"><b>Total:</b> </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td ><b>Total:</b> </td>
                                                         <td>Rp. <?php echo $fSubTotal?></td>
                                                     </tr>
                                         </table>
-
+                                        </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="submit" style="display: block">Konfirmasi</button>
                                 </form>
