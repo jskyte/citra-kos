@@ -27,8 +27,83 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="assets/css/custom.style.css" rel="stylesheet">
+  <style>
+    section {
+      padding-top: 4rem;
+      padding-bottom: 5rem;
+      background-color: #f1f4fa;
+    }
+
+    .wrap {
+      display: flex;
+      background: white;
+      padding: 1rem 1rem 1rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .wrap:hover {
+      background: linear-gradient(135deg, #6394ff 0%, #0a193b 100%);
+      color: white;
+    }
+
+    .ico-wrap {
+      margin: auto;
+    }
+
+    .mbr-iconfont {
+      font-size: 4.5rem !important;
+      color: #313131;
+      margin: 1rem;
+      padding-right: 1rem;
+    }
+
+    .vcenter {
+      margin: auto;
+    }
+
+    .mbr-section-title3 {
+      text-align: left;
+    }
+
+    h2 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .display-5 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 1.4rem;
+    }
+
+    .mbr-bold {
+      font-weight: 700;
+    }
+
+    p {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      line-height: 25px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -48,10 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <h1 class="m-0 text-dark">Citra Kos</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Starter Page</li>
-              </ol>
+
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -61,7 +133,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
+          <div class="row mbr-justify-content-center">
 
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="printkuitansi.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-receipt fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Data <span> Kuitansi</span></h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="historytagihan.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-history fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">History
+                      <span>Tagihan Kasir</span>
+                    </h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="user.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-users fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Manajemen
+                      <span>User</span>
+                    </h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="kerjauser.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-street-view fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Manajemen <span>Lokasi Kerja</span></h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->

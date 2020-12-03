@@ -77,7 +77,6 @@ $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenis
                       <thead>
                         <tr>
                           <th style="width: 5px">No.</th>
-                          <th style="width: 5px"></th>
                           <th style="width: 20px">Nomor Kamar</th>
                           <th style="width: 20px">Nama</th>
                           <th>Harga</th>
@@ -94,7 +93,6 @@ $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenis
                           ?>
                             <tr>
                               <td><?php echo $nomor ?></td>
-                              <td><input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>"></td>
                               <td><?php echo $row['No_Kamar'] ?></td>
                               <td><?php echo $row['Nama'] ?></td>
                               <td>Rp. <?php echo $harga ?></td>
