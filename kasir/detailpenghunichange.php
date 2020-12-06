@@ -117,7 +117,7 @@ if (isset($_POST['submit'])) {
 
                                         <div class="form-group">
                                             <label for="harga">Harga</label>
-                                            <input type="text" class="form-control" id="harga" name="inputHarga" placeholder="Harga Sebelumnya: Rp. <?php echo $harga ?>">
+                                            <input type="number" class="form-control" id="harga" name="inputHarga" placeholder="Harga Sebelumnya: Rp. <?php echo $harga ?>">
                                         </div>
                                         
                                         <div class="form-group">
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
                                         <div class="form-group">
                                             <label for="fasilitas">Fasilitas</label>
                                             <select name="inputFasilitas" class="form-control" id="fasilitas">
-                                                <option value="NULL">Fasilitas Sebelumnya: <?php echo $row['jenisPemb']?></option>
+                                                <option value="<?php echo $row['idPembayaran']?>">Fasilitas Sebelumnya: <?php echo $row['jenisPemb']?></option>
                                                 <?php if (mysqli_num_rows($queryfasilitas) > 0) { ?>
                                                     <?php while ($row = mysqli_fetch_array($queryfasilitas)) { ?>
                                                         <option value="<?php echo $row["idPembayaran"] ?>">
