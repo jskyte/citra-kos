@@ -41,15 +41,10 @@
               <li class="nav-item">
                 <a href="historytagihan.php" class="nav-link">
                   <i class="fas fa-history nav-icon"></i>
-                  <p>Histori Tagihan</p>
+                  <p>Laporan Keluar Masuk</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="historykuitansi.php" class="nav-link">
-                  <i class="fas fa-file-invoice nav-icon"></i>
-                  <p>History Print Kuitansi</p>
-                </a>
-              </li>
+
               
               <li class="nav-item">
                 <a href="jenispembayaran.php" class="nav-link">
