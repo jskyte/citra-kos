@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
 
-    header('location:datakamar.php');
+    header('location:laporandatamasuk.php');
 }
 
 

@@ -24,6 +24,14 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item">
+            <a href="index.php" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <p>
@@ -34,26 +42,26 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="datakamar.php" class="nav-link">
-                  <i class="fas fa-bed nav-icon"></i>
-                  <p>Data Kamar</p>
+                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                  <p>Kuitansi Kamar</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="historytagihan.php" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
-                  <p>Laporan Setoran Kasir</p>
+                  <i class="fas fa-coins nav-icon"></i>
+                  <p>Setoran Kasir</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="laporandatamasuk.php" class="nav-link">
                   <i class="fas fa-sign-in-alt nav-icon"></i>
-                  <p>Laporan Penghuni Masuk</p>
+                  <p>Penghuni Masuk</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="laporandatakeluar.php" class="nav-link">
                   <i class="fas fa-sign-out-alt nav-icon"></i>
-                  <p>Laporan Penghuni Keluar</p>
+                  <p>Penghuni Keluar</p>
                 </a>
               </li>
             </ul>

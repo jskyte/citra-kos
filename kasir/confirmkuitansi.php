@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
   $idUser = $_SESSION['idUser'];
   for ($i = 0; $i < sizeof($checkbox); $i++) {
 
-    $querycheck = mysqli_query($connection, "SELECT * FROM d_masterkamarcpy WHERE No_Kamar = '$checkbox[$i]'");
+    $querycheck = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
     $data = mysqli_fetch_array($querycheck);
     $NoKamar = $data['No_Kamar'];
     $Nama = $data['Nama'];
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
     mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser')");
     mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser', 'TAGIHAN', '')");
 
-    header('location:datakamar.php');
+    header('location:historytagihan.php');
   }
 }
 
@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
                                             <tbody>
                                                 <?php $nomor = 1;
                                                 while ($i < sizeof($selectedData)) {
-                                                    $query = mysqli_query($connection, "SELECT * FROM d_masterkamarcpy JOIN jenispembayaran ON (d_masterkamarcpy.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
+                                                    $query = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi JOIN jenispembayaran ON (b_data_print_kuitansi.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
 
                                                     $fetchData = mysqli_fetch_array($query);
                                                     $Nama = $fetchData['Nama'];

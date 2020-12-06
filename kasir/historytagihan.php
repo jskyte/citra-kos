@@ -84,12 +84,13 @@
                   </thead>
                   <tbody>
                     <?php if(mysqli_num_rows($query) > 0) { ?>
-                        <?php while($row = mysqli_fetch_array($query)) { ?>
+                        <?php while($row = mysqli_fetch_array($query)) { 
+                          $Harga = number_format($row['Harga'], 0, ",", "."); ?>
                             <tr>
                                 <td><?php echo $row['No_Kamar']?></td>
                                 <td><?php echo $row['Nama']?></td>
                                 <td><?php echo $row['jenisPemb']?></td>
-                                <td><?php echo $row['Harga']?></td>
+                                <td><?php echo $Harga?></td>
                                 <td><?php echo $row['Tgl_Kui']?></td>
                                 <td><?php echo $row['Category_Tempat']?></td>
                                 <td><?php echo $row['Tgl_Byr']?></td>

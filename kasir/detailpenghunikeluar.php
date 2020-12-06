@@ -28,7 +28,9 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
 
-    header('location:datakamar.php');
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
+
+    header('location:laporandatakeluar.php');
 }
 
 

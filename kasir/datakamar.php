@@ -9,7 +9,7 @@ if (!isset($_SESSION['idUser'])) {
 $idUser = $_SESSION['idUser'];
 
 $query = mysqli_query($connection, "SELECT * FROM
-d_masterkamarcpy d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat)
+b_data_print_kuitansi d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat)
 JOIN jenispembayaran j ON (d.idPembayaran = j.idPembayaran)
 WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
 
@@ -71,10 +71,6 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
           <div class="row">
             <div class="col-12">
               <div class="card">
-              <div class="card-header">
-                  <a class="btn btn-primary ctm-responsive-btn" href="addpenghunibaru.php">Tambah Penghuni Baru</a> <br>
-                  <a class="btn btn-warning ctm-responsive-btn" href="addpenghunikeluar.php">Penghuni Keluar</a>
-                </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
@@ -83,8 +79,8 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                       <thead>
                         <tr>
                           <th style="width:30px"></th>
-                          <th >Nomor Kamar</th>
-                          <th >Nama</th>
+                          <th>Nomor Kamar</th>
+                          <th>Nama</th>
                           <th>Harga</th>
                         </tr>
                       </thead>

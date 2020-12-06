@@ -133,10 +133,10 @@ $idUser = $_SESSION['idUser'];
               <a href="datakamar.php">
                 <div class="wrap">
                   <div class="ico-wrap">
-                    <span class="mbr-iconfont fa-bed fa"></span>
+                    <span class="mbr-iconfont fa-file-invoice-dollar fa"></span>
                   </div>
                   <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Data <span> Kamar</span></h2>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span> Kuitansi Kamar</span></h2>
                   </div>
                 </div>
               </a>
@@ -145,10 +145,10 @@ $idUser = $_SESSION['idUser'];
               <a href="historytagihan.php">
                 <div class="wrap">
                   <div class="ico-wrap">
-                    <span class="mbr-iconfont fa-file-invoice-dollar fa"></span>
+                    <span class="mbr-iconfont fa-coins fa"></span>
                   </div>
                   <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
                       <span>Setoran Kasir</span>
                     </h2>
                   </div>
@@ -162,7 +162,7 @@ $idUser = $_SESSION['idUser'];
                     <span class="mbr-iconfont fa-sign-in-alt fa"></span>
                   </div>
                   <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
                       <span>Penghuni Masuk</span>
                     </h2>
                   </div>
@@ -176,7 +176,7 @@ $idUser = $_SESSION['idUser'];
                     <span class="mbr-iconfont fa-sign-out-alt fa"></span>
                   </div>
                   <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan <span>Penghuni Keluar</span></h2>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"> <span>Penghuni Keluar</span></h2>
                   </div>
                 </div>
               </a>

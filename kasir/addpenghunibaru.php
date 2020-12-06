@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
 
                     <div class="card-footer">
                       <button type="submit" class="btn btn-primary" name="submit">Pilih</button>
-                      <a href="datakamar.php" class="btn btn-warning" style="margin-left: 20px">Batal</a>
+                      <a href="index.php" class="btn btn-warning" style="margin-left: 20px">Batal</a>
                     </div>
                 </form>
               </div>

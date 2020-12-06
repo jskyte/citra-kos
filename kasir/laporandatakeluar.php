@@ -48,12 +48,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Laporan Penghuni Keluar</h1>
+            <h1 class="m-0 text-dark">Penghuni Keluar</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="datakamar.php">Data Kamar</a></li>
-              <li class="breadcrumb-item active">Laporan Penghuni Keluar</li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Penghuni Keluar</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -67,10 +67,13 @@
       <div class="row">
           <div class="col-12">
             <div class="card">
+            <div class="card-header">
+                  <a class="btn btn-warning ctm-responsive-btn" href="addpenghunikeluar.php">Penghuni Keluar</a>
+                </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <div class="table-responsive">
-                <table class="table table-bordered text-nowrap">
+              <h4 style="text-align:center">Daftar Orang Keluar</h4>
+                <table id="example2" class="table table-bordered text-nowrap">
                   <thead>
                   <tr>
                     <th>Nomor Kamar</th>
@@ -83,11 +86,12 @@
                   </thead>
                   <tbody>
                     <?php if(mysqli_num_rows($query) > 0) { ?>
-                        <?php while($row = mysqli_fetch_array($query)) { ?>
+                        <?php while($row = mysqli_fetch_array($query)) { 
+                           $Harga = number_format($row['Harga'], 0, ",", ".");?>
                             <tr>
                                 <td><?php echo $row['No_Kamar']?></td>
                                 <td><?php echo $row['Nama']?></td>
-                                <td><?php echo $row['Harga']?></td>
+                                <td>Rp. <?php echo $Harga?></td>
                                 <td><?php echo $row['jenisPemb']?></td>
                                 <td><?php echo $row['Tgl_Kejadian']?></td>
                                 <td><?php echo $row['Category_Tempat']?></td>
@@ -95,7 +99,7 @@
                         <?php } ?>
                     <?php } ?>
                 </table>
-                </div>
+   
               </div>
               <!-- /.card-body -->
             </div>
