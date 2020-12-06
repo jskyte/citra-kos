@@ -8,7 +8,7 @@
 
     $idUser = $_SESSION['idUser'];
 
-    $query = mysqli_query($connection, "SELECT * FROM c_laporansetorankasir JOIN jenispembayaran ON (jenispembayaran.idPembayaran = c_laporansetorankasir.idPembayaran) WHERE idUser = '$idUser'");
+    $query = mysqli_query($connection, "SELECT * FROM c_laporanklrmsk c JOIN jenispembayaran j ON (c.idPembayaran = j.idPembayaran) WHERE status = 'KELUAR' AND idUser = '$idUser'");
 
 ?>
 
@@ -48,12 +48,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">History Print Kuitansi</h1>
+            <h1 class="m-0 text-dark">Laporan Penghuni Keluar</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="datakamar.php">Home</a></li>
-              <li class="breadcrumb-item active">History Print Kuitansi</li>
+              <li class="breadcrumb-item"><a href="datakamar.php">Data Kamar</a></li>
+              <li class="breadcrumb-item active">Laporan Penghuni Keluar</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -75,11 +75,10 @@
                   <tr>
                     <th>Nomor Kamar</th>
                     <th>Nama</th>
-                    <th>Pembayaran</th>
                     <th>Harga</th>
-                    <th>Tanggal Kuitansi</th>
+                    <th>Pembayaran</th>
+                    <th>Tanggal Masuk</th>
                     <th>Category Tempat</th>
-                    <th>Tanggal Bayar</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -88,11 +87,10 @@
                             <tr>
                                 <td><?php echo $row['No_Kamar']?></td>
                                 <td><?php echo $row['Nama']?></td>
-                                <td><?php echo $row['jenisPemb']?></td>
                                 <td><?php echo $row['Harga']?></td>
-                                <td><?php echo $row['Tgl_Kui']?></td>
+                                <td><?php echo $row['jenisPemb']?></td>
+                                <td><?php echo $row['Tgl_Kejadian']?></td>
                                 <td><?php echo $row['Category_Tempat']?></td>
-                                <td><?php echo $row['Tgl_Byr']?></td>
                             </tr>
                         <?php } ?>
                     <?php } ?>

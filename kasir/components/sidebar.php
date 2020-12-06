@@ -33,15 +33,27 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php" class="nav-link">
-                  <i class="fas fa-receipt nav-icon"></i>
-                  <p>Data Print Kuitansi</p>
+                <a href="datakamar.php" class="nav-link">
+                  <i class="fas fa-bed nav-icon"></i>
+                  <p>Data Kamar</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="historytagihan.php" class="nav-link">
-                  <i class="fas fa-history nav-icon"></i>
-                  <p>Histori Tagihan</p>
+                  <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                  <p>Laporan Setoran Kasir</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="laporandatamasuk.php" class="nav-link">
+                  <i class="fas fa-sign-in-alt nav-icon"></i>
+                  <p>Laporan Penghuni Masuk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="laporandatakeluar.php" class="nav-link">
+                  <i class="fas fa-sign-out-alt nav-icon"></i>
+                  <p>Laporan Penghuni Keluar</p>
                 </a>
               </li>
             </ul>

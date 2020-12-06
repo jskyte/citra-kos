@@ -154,8 +154,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <span class="mbr-iconfont fa-history fa"></span>
                   </div>
                   <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">History
-                      <span>Tagihan Kasir</span>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan
+                      <span>Setoran Kasir</span>
                     </h2>
                   </div>
                 </div>

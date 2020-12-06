@@ -41,11 +41,21 @@
               <li class="nav-item">
                 <a href="historytagihan.php" class="nav-link">
                   <i class="fas fa-history nav-icon"></i>
-                  <p>Laporan Keluar Masuk</p>
+                  <p>Laporan Setoran Kasir</p>
                 </a>
               </li>
-
-              
+              <li class="nav-item">
+                <a href="laporandatamasuk.php" class="nav-link">
+                  <i class="fas fa-sign-in-alt nav-icon"></i>
+                  <p>Laporan Data Masuk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="laporandatakeluar.php" class="nav-link">
+                  <i class="fas fa-sign-out-alt nav-icon"></i>
+                  <p>Laporan Data Keluar</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="jenispembayaran.php" class="nav-link">
                   <i class="fas fa-person-booth nav-icon"></i>

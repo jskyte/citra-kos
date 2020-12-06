@@ -14,9 +14,8 @@ if (isset($_POST['submit'])) {
   $checkbox = $_POST['checkboxData'];
   $idUser = $_SESSION['idUser'];
   for ($i = 0; $i < sizeof($checkbox); $i++) {
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = NOW() WHERE No_Kamar = '$checkbox[$i]'");
 
-    $querycheck = mysqli_query($connection, "SELECT * FROM data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
+    $querycheck = mysqli_query($connection, "SELECT * FROM d_masterkamarcpy WHERE No_Kamar = '$checkbox[$i]'");
     $data = mysqli_fetch_array($querycheck);
     $NoKamar = $data['No_Kamar'];
     $Nama = $data['Nama'];
@@ -25,10 +24,10 @@ if (isset($_POST['submit'])) {
     $TglKui = $data['Tgl_Kui'];
     $Category = $data['Category_Tempat'];
 
-    mysqli_query($connection, "UPDATE data_print_kuitansi SET Tgl_Byr = SYSDATE() WHERE No_Kamar = '$checkbox[$i]'");
-    mysqli_query($connection, "INSERT INTO hstry_data_tagihan VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser')");
+    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser', 'TAGIHAN', '')");
 
-    header('location:index.php');
+    header('location:datakamar.php');
   }
 }
 
@@ -75,7 +74,7 @@ if (isset($_POST['submit'])) {
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="datakamar.php">Home</a></li>
                                 <li class="breadcrumb-item active">Konfirmasi Kuitansi</li>
                             </ol>
                         </div><!-- /.col -->
@@ -110,7 +109,7 @@ if (isset($_POST['submit'])) {
                                             <tbody>
                                                 <?php $nomor = 1;
                                                 while ($i < sizeof($selectedData)) {
-                                                    $query = mysqli_query($connection, "SELECT * FROM data_print_kuitansi JOIN jenispembayaran ON (data_print_kuitansi.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
+                                                    $query = mysqli_query($connection, "SELECT * FROM d_masterkamarcpy JOIN jenispembayaran ON (d_masterkamarcpy.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
 
                                                     $fetchData = mysqli_fetch_array($query);
                                                     $Nama = $fetchData['Nama'];

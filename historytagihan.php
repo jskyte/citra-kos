@@ -8,7 +8,7 @@
 
     $idUser = $_SESSION['idUser'];
 
-    $query = mysqli_query($connection, "SELECT * FROM c_laporanKlrMsk JOIN jenispembayaran ON (jenispembayaran.idPembayaran = c_laporanKlrMsk.idPembayaran) ");
+    $query = mysqli_query($connection, "SELECT * FROM c_laporansetorankasir JOIN jenispembayaran ON (jenispembayaran.idPembayaran = c_laporansetorankasir.idPembayaran) ");
 
 ?>
 
@@ -48,12 +48,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Laporan Keluar Masuk Kasir</h1>
+            <h1 class="m-0 text-dark">Laporan Setoran Kasir</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Laporan Keluar Masuk Kasir</li>
+              <li class="breadcrumb-item active">Laporan Setoran Kasir</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

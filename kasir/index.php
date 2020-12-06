@@ -8,11 +8,6 @@ if (!isset($_SESSION['idUser'])) {
 
 $idUser = $_SESSION['idUser'];
 
-$query = mysqli_query($connection, "SELECT * FROM
-data_print_kuitansi d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat)
-JOIN jenispembayaran j ON (d.idPembayaran = j.idPembayaran)
-WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
-
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +31,75 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
   <link rel="stylesheet" href="assets/css/custom.style.css">
+  <style>
+    section {
+      padding-top: 4rem;
+      padding-bottom: 5rem;
+      background-color: #f1f4fa;
+    }
+
+    .wrap {
+      display: flex;
+      background: white;
+      padding: 1rem 1rem 1rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .wrap:hover {
+      background: linear-gradient(135deg, #6394ff 0%, #0a193b 100%);
+      color: white;
+    }
+
+    .ico-wrap {
+      margin: auto;
+    }
+
+    .mbr-iconfont {
+      font-size: 4.5rem !important;
+      color: #313131;
+      margin: 1rem;
+      padding-right: 1rem;
+    }
+
+    .vcenter {
+      margin: auto;
+    }
+
+    .mbr-section-title3 {
+      text-align: left;
+    }
+
+    h2 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .display-5 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 1.4rem;
+    }
+
+    .mbr-bold {
+      font-weight: 700;
+    }
+
+    p {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      line-height: 25px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -52,14 +116,9 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Kuitansi Yang Tersedia</h1>
+              <h1 class="m-0 text-dark">Selamat Datang, <b> <?php echo $_SESSION['namaUser']?> </b>!</h1>
             </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Kuitansi Yang Tersedia</li>
-              </ol>
-            </div><!-- /.col -->
+          
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -68,61 +127,61 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped" style="font-size: 3.8vw">
-                      <thead>
-                        <tr>
-                          <th style="width:30px"></th>
-                          <th >Nomor Kamar</th>
-                          <th >Nama</th>
-                          <th>Harga</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (mysqli_num_rows($query) > 0) {
-                          $nomor = 1 ?>
-                          <?php while ($row = mysqli_fetch_array($query)) {
-                            $harga = number_format($row["Harga"], 0, ",", ".");
-                            $noKam = $row['No_Kamar'];
-                            $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM hstry_data_tagihan WHERE No_Kamar = '$noKam'");
-                            $fetchvalid = mysqli_fetch_array($queryvalid);
-                          ?>
-                            <tr>
+          <div class="row mbr-justify-content-center">
 
-                              <td>
-                                <?php if(isset($fetchvalid['No_Kamar'])) { ?>
-                                  <i class="fas fa-check"></i>
-                                <?php } else {?>
-                                <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
-                                <?php }?>                     
-                     
-                              </td>
-                              <td><?php echo $row['No_Kamar'] ?></td>
-                              <td><?php echo $row['Nama'] ?></td>
-                              <td>Rp. <?php echo $harga ?></td>
-                            </tr>
-                          <?php $nomor++;
-                          }  ?>
-                        <?php } ?>
-                    </table>
-                    </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="datakamar.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-bed fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Data <span> Kamar</span></h2>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
-                </form>
-                <!-- /.card-body -->
-
-              </div>
-              <!-- /.card -->
+              </a>
             </div>
-            <!-- /.col -->
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="historytagihan.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-file-invoice-dollar fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan
+                      <span>Setoran Kasir</span>
+                    </h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="laporandatamasuk.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-sign-in-alt fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan
+                      <span>Penghuni Masuk</span>
+                    </h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="laporandatakeluar.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-sign-out-alt fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Laporan <span>Penghuni Keluar</span></h2>
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
-          <!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
