@@ -35,6 +35,7 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
+
   <link rel="stylesheet" href="assets/css/custom.style.css">
 </head>
 
@@ -74,43 +75,46 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                 <!-- /.card-header -->
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped" style="font-size: 3.8vw">
-                      <thead>
-                        <tr>
-                          <th style="width:30px"></th>
-                          <th>Nomor Kamar</th>
-                          <th>Nama</th>
-                          <th>Harga</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (mysqli_num_rows($query) > 0) {
-                          $nomor = 1 ?>
-                          <?php while ($row = mysqli_fetch_array($query)) {
-                            $harga = number_format($row["Harga"], 0, ",", ".");
-                            $noKam = $row['No_Kamar'];
-                            $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM c_laporansetorankasir WHERE No_Kamar = '$noKam'");
-                            $fetchvalid = mysqli_fetch_array($queryvalid);
-                          ?>
-                            <tr>
+                    <div class="table-responsive">
+                      <div class="search-bar" style="display: flex; justify-content: center;">
+                      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari Nomor Kamar...." style="margin-bottom: 20px; padding: 5px; border-radius: 5px; display: block">
+                      </div>
+                      <table id="myTable" class="table table-bordered table-striped" style="font-size: 3.8vw">
+                        <thead>
+                          <tr>
+                            <th style="width:30px"></th>
+                            <th>Nomor Kamar</th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (mysqli_num_rows($query) > 0) {
+                            $nomor = 1 ?>
+                            <?php while ($row = mysqli_fetch_array($query)) {
+                              $harga = number_format($row["Harga"], 0, ",", ".");
+                              $noKam = $row['No_Kamar'];
+                              $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM c_laporansetorankasir WHERE No_Kamar = '$noKam'");
+                              $fetchvalid = mysqli_fetch_array($queryvalid);
+                            ?>
+                              <tr>
 
-                              <td>
-                                <?php if(isset($fetchvalid['No_Kamar'])) { ?>
-                                  <i class="fas fa-check"></i>
-                                <?php } else {?>
-                                <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
-                                <?php }?>                     
-                     
-                              </td>
-                              <td><?php echo $row['No_Kamar'] ?></td>
-                              <td><?php echo $row['Nama'] ?></td>
-                              <td>Rp. <?php echo $harga ?></td>
-                            </tr>
-                          <?php $nomor++;
-                          }  ?>
-                        <?php } ?>
-                    </table>
+                                <td>
+                                  <?php if (isset($fetchvalid['No_Kamar'])) { ?>
+                                    <i class="fas fa-check"></i>
+                                  <?php } else { ?>
+                                    <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
+                                  <?php } ?>
+
+                                </td>
+                                <td><?php echo $row['No_Kamar'] ?></td>
+                                <td><?php echo $row['Nama'] ?></td>
+                                <td>Rp. <?php echo $harga ?></td>
+                              </tr>
+                            <?php $nomor++;
+                            }  ?>
+                          <?php } ?>
+                      </table>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="display: block">PILIH</button>
@@ -157,6 +161,26 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
   <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="assets/js/datatable.js"></script>
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
 
 </body>
 
