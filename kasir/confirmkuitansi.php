@@ -24,8 +24,12 @@ if (isset($_POST['submit'])) {
     $TglKui = $data['Tgl_Kui'];
     $Category = $data['Category_Tempat'];
 
-    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser')");
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', NOW(), '$idUser', 'TAGIHAN', '')");
+    $tz = 'Asia/Jakarta';
+    $dt = new DateTime("now", new DateTimeZone($tz));
+    $timestampwib = $dt->format('Y-m-d G:i:s');
+
+    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser', 'TAGIHAN', '')");
 
     header('location:historytagihan.php');
   }
