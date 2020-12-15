@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     $dt = new DateTime("now", new DateTimeZone($tz));
     $timestampwib = $dt->format('Y-m-d G:i:s');
 
-    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser')");
+    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser')");
     mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser', 'TAGIHAN', '')");
 
     header('location:historytagihan.php');
@@ -99,11 +99,11 @@ if (isset($_POST['submit'])) {
                                     <div class="table-responsive">
                                         <table class="table table-bordered text-nowrap">
                                             <thead>
-                                                <tr>
+                                                <tr >
                                                     <th style="display:none"></th>
-                                                    <th style="width: 10px">No. </th>
-                                                    <th>Nomor Kamar</th>
-                                                    <th>Nama</th>
+                                                    <th style="display:none">No. </th>
+                                                    <th style="width: 10px">Kamar</th>
+                                                    <th >Nama</th>
                                                     <th>Harga</th>
                                                     <th>Pembayaran</th>
                                                     <th>Tanggal Kuitansi</th>
@@ -127,28 +127,29 @@ if (isset($_POST['submit'])) {
                                                     $fSubTotal = number_format($subTotal, 0, ",", ".");
 
                                                 ?>
-                                                    <tr>
+                                                    <tr >
                                                         <td style="display:none"><input type="checkbox" name="checkboxData[]" value="<?php echo $NoKamar ?>" checked></td>
-                                                        <td><?php echo $nomor ?></td>
+                                                        <td style="display:none"><?php echo $nomor ?></td>
                                                         <td><?php echo $NoKamar ?></td>
                                                         <td><?php echo $Nama ?></td>
+                                                        <td>Rp. <?php echo $fHarga ?></td>
                                                         <td><?php echo $Pembayaran ?></td>
                                                         <td><?php echo $TglKui ?></td>
                                                         <td><?php echo $CategoryTemp ?></td>
-                                                        <td>Rp. <?php echo $fHarga ?></td>
+                                                        
                                                     </tr>
                                                 <?php $nomor++;
                                                     $i++;
                                                 }  ?>
-                                                    <tr>
+                                                    <tr >
+                                                        <td style="display:none"></td>
                                                         <td style="display:none"></td>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td ><b>Total:</b> </td>
+                                                        <td><b>Total:</b> </td>
                                                         <td>Rp. <?php echo $fSubTotal?></td>
+                                                        <td></td>
+                                                        <td ></td>
+                                                        <td></td>
                                                     </tr>
                                         </table>
                                         </div>
@@ -197,6 +198,7 @@ if (isset($_POST['submit'])) {
     <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="assets/js/datatable.js"></script>
+    
 </body>
 
 </html>

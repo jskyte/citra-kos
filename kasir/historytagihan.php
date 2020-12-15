@@ -8,12 +8,13 @@ if (!isset($_SESSION['idUser'])) {
 
 $idUser = $_SESSION['idUser'];
 
-$query = mysqli_query($connection, "SELECT Tgl_Submit, COUNT(No_Kamar) as jumlahTagihan
+$query = mysqli_query($connection, "SELECT Tgl_Submit, status, COUNT(No_Kamar) as jumlahTagihan
 FROM e_loguser
-WHERE status = 'TAGIHAN'
-and idUser = '$idUser'
+WHERE idUser = '$idUser'
 GROUP BY Tgl_Submit
 ORDER BY Tgl_Submit DESC");
+
+$Total = 0
 
 ?>
 
@@ -88,11 +89,20 @@ ORDER BY Tgl_Submit DESC");
                         $byDate = mysqli_query($connection, "SELECT * FROM e_loguser 
                         JOIN jenispembayaran ON (jenispembayaran.idPembayaran = e_loguser.idPembayaran) 
                         WHERE idUser = '$idUser' 
-                        AND e_loguser.Tgl_Submit = '$tglSubmit'
-                        AND e_loguser.status = 'TAGIHAN'") ?>
-                        <div class="card card-primary">
+                        AND e_loguser.Tgl_Submit = '$tglSubmit'") ?>
+                        <div class="card card-<?php
+                          if($row['status'] == 'MASUK') {
+                            echo 'success';
+                          } else if ($row['status'] == 'TAGIHAN') {
+                            echo 'primary';
+                          } else if ($row['status'] == 'KELUAR') {
+                            echo 'danger';
+                          } ?>">
                           <div class="card-header" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $nomor ?>">
                             <h4 class="card-title">
+                            <a>
+                                Status: <b><?php echo $row['status'] ?></b>
+                              </a> <br>
                               <a>
                                 Tanggal: <b><?php echo $mysqldate ?></b>
                               </a> <br>
@@ -116,16 +126,35 @@ ORDER BY Tgl_Submit DESC");
                                 <tbody>
                                   <?php if (mysqli_num_rows($byDate) > 0) { ?>
                                     <?php while ($rowD = mysqli_fetch_array($byDate)) {
+                                      $status = $rowD['status'];
+                                      $tglSub = $rowD['Tgl_Submit'];
+                                      $getHarga = mysqli_query($connection, "SELECT SUM(Harga) as total
+                                      FROM e_loguser
+                                      WHERE idUser = '$idUser'
+                                      AND status = '$status'
+                                      AND Tgl_Submit = '$tglSub'");
+
+                                      $fetchHarga = mysqli_fetch_array($getHarga);
+                                      $sumHarga = $fetchHarga['total'];
+                                      $fSumHarga = number_format($sumHarga, 0, ",", ".");
+
                                       $Harga = number_format($rowD['Harga'], 0, ",", "."); ?>
                                       <tr>
                                         <td><?php echo $rowD['No_Kamar'] ?></td>
                                         <td><?php echo $rowD['Nama'] ?></td>
-                                        <td><?php echo $Harga ?></td>
+                                        <td>Rp. <?php echo $Harga ?></td>
                                         <td><?php echo $rowD['jenisPemb'] ?></td>
                                         <td><?php echo $rowD['Tgl_Kejadian'] ?></td>
                                       </tr>
                                     <?php } ?>
                                   <?php } ?>
+                                      <tr>
+                                        <td></td>
+                                        <td style="text-align:right"> <b>Total: </b></td>
+                                        <td><b> Rp. <?php echo $fSumHarga ?> </b></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
                                 </tbody>
                               </table>
                             </div>

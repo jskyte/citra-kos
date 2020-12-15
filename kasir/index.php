@@ -142,20 +142,6 @@ $idUser = $_SESSION['idUser'];
               </a>
             </div>
             <div class="col-lg-6 mbr-col-md-10">
-              <a href="historytagihan.php">
-                <div class="wrap">
-                  <div class="ico-wrap">
-                    <span class="mbr-iconfont fa-coins fa"></span>
-                  </div>
-                  <div class="text-wrap vcenter">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
-                      <span>Setoran Kasir</span>
-                    </h2>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-6 mbr-col-md-10">
               <a href="laporandatamasuk.php">
                 <div class="wrap">
                   <div class="ico-wrap">
@@ -177,6 +163,20 @@ $idUser = $_SESSION['idUser'];
                   </div>
                   <div class="text-wrap vcenter">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"> <span>Penghuni Keluar</span></h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 mbr-col-md-10">
+              <a href="historytagihan.php">
+                <div class="wrap">
+                  <div class="ico-wrap">
+                    <span class="mbr-iconfont fa-history fa"></span>
+                  </div>
+                  <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+                      <span>Aktivitas Kasir</span>
+                    </h2>
                   </div>
                 </div>
               </a>

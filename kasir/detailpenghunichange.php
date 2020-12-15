@@ -117,7 +117,7 @@ if (isset($_POST['submit'])) {
 
                                         <div class="form-group">
                                             <label for="harga">Harga</label>
-                                            <input type="number" class="form-control" id="harga" name="inputHarga" placeholder="Harga Sebelumnya: Rp. <?php echo $harga ?>">
+                                            <input type="number" class="form-control" id="harga" name="inputHarga"  value="<?php echo $row['Harga'] ?>" placeholder="Harga Sebelumnya: Rp. <?php echo $harga ?>">
                                         </div>
                                         
                                         <div class="form-group">

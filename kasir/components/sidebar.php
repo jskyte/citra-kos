@@ -47,12 +47,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="historytagihan.php" class="nav-link">
-                  <i class="fas fa-coins nav-icon"></i>
-                  <p>Setoran Kasir</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="laporandatamasuk.php" class="nav-link">
                   <i class="fas fa-sign-in-alt nav-icon"></i>
                   <p>Penghuni Masuk</p>
@@ -62,6 +56,12 @@
                 <a href="laporandatakeluar.php" class="nav-link">
                   <i class="fas fa-sign-out-alt nav-icon"></i>
                   <p>Penghuni Keluar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="historytagihan.php" class="nav-link">
+                  <i class="fas fa-history nav-icon"></i>
+                  <p>Aktivitas Kasir</p>
                 </a>
               </li>
             </ul>

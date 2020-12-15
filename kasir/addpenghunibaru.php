@@ -14,7 +14,7 @@ WHERE d.Nama = '' AND l.idUser = '$idUser'");
 
 if (isset($_POST['submit'])) {
   $noKamar = $_REQUEST["inputNoKamar"];
-  header('location:askdatapenghuni.php?nokamar='.$noKamar);
+  header('location:detailpenghunichange.php?nokamar='.$noKamar);
 }
 
 

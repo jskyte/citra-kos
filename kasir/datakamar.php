@@ -76,10 +76,7 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                 <div class="card-body">
                   <form role="form" enctype="multipart/form-data" method="POST" action="confirmkuitansi.php">
                     <div class="table-responsive">
-                      <div class="search-bar" style="display: flex; justify-content: center;">
-                      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari Nomor Kamar...." style="margin-bottom: 20px; padding: 5px; border-radius: 5px; display: block">
-                      </div>
-                      <table id="myTable" class="table table-bordered table-striped" style="font-size: 3.8vw">
+                      <table id="coba" class="table table-bordered table-striped" style="font-size: 3.8vw">
                         <thead>
                           <tr>
                             <th style="width:30px"></th>
@@ -160,26 +157,30 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
   <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="assets/js/datatable.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/sp-1.2.2/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/sp-1.2.2/datatables.min.js"></script>
+
   <script>
-    function myFunction() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-    }
+    $(document).ready( function () {
+    $('#coba').DataTable({
+      "paging": false,
+      "bLengthChange": false,
+      "autowidth" : true
+    });
+
+    $(document).ready(function () {             
+    $('.dataTables_filter input[type="search"]').css(
+     {'width':'100px','display':'inline-block'}
+      );
+    });
+
+    $(document).ready(function () {             
+    $('.dataTables_filter').css(
+     {'font-size':'1rem'}
+      );
+    });
+} );
   </script>
 
 </body>
