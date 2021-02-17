@@ -83,6 +83,7 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                             <th>Nomor Kamar</th>
                             <th>Nama</th>
                             <th>Harga</th>
+                            <th>Tanggal Kuitansi</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -91,7 +92,8 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                             <?php while ($row = mysqli_fetch_array($query)) {
                               $harga = number_format($row["Harga"], 0, ",", ".");
                               $noKam = $row['No_Kamar'];
-                              $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM c_laporansetorankasir WHERE No_Kamar = '$noKam'");
+                              $TglKui = $row['Tgl_Kui'];
+                              $queryvalid = mysqli_query($connection, "SELECT No_Kamar FROM c_laporansetorankasir WHERE No_Kamar = '$noKam' AND Tgl_Kui = '$TglKui' ");
                               $fetchvalid = mysqli_fetch_array($queryvalid);
                             ?>
                               <tr>
@@ -107,6 +109,7 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                                 <td><?php echo $row['No_Kamar'] ?></td>
                                 <td><?php echo $row['Nama'] ?></td>
                                 <td>Rp. <?php echo $harga ?></td>
+                                <td><?php echo $row['Tgl_Kui'] ?></td>
                               </tr>
                             <?php $nomor++;
                             }  ?>
