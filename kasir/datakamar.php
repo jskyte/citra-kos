@@ -102,7 +102,7 @@ WHERE l.idUser = '$idUser' ORDER BY d.No_Kamar");
                                   <?php if (isset($fetchvalid['No_Kamar'])) { ?>
                                     <i class="fas fa-check"></i>
                                   <?php } else { ?>
-                                    <input type="checkbox" name="selectedData[]" value="<?php echo $row['No_Kamar'] ?>">
+                                    <input type="checkbox" name="selectedData[]" value="<?php echo $row['id_Kui']?>">
                                   <?php } ?>
 
                                 </td>
