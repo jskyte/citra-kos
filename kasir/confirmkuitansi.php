@@ -7,20 +7,22 @@ if (!isset($_SESSION['idUser'])) {
 }
 
 $selectedData = $_POST['selectedData'];
+
 $i = 0;
 $subTotal = 0;
 
 if (isset($_POST['submit'])) {
   $checkbox = $_POST['checkboxData'];
+  $Harga = $_REQUEST['hargaKamar'];
   $idUser = $_SESSION['idUser'];
   for ($i = 0; $i < sizeof($checkbox); $i++) {
 
-    $querycheck = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi WHERE No_Kamar = '$checkbox[$i]'");
+    $querycheck = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi WHERE id_Kui = '$checkbox[$i]'");
     $data = mysqli_fetch_array($querycheck);
     $NoKamar = $data['No_Kamar'];
     $Nama = $data['Nama'];
     $Pembayaran = $data['idPembayaran'];
-    $Harga = $data['Harga'];
+    $HargaBefore = $data['Harga'];
     $TglKui = $data['Tgl_Kui'];
     $Category = $data['Category_Tempat'];
 
@@ -28,8 +30,14 @@ if (isset($_POST['submit'])) {
     $dt = new DateTime("now", new DateTimeZone($tz));
     $timestampwib = $dt->format('Y-m-d G:i:s');
 
-    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser')");
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser', 'TAGIHAN', '')");
+    if($HargaBefore == $Harga[$i]) {
+        $Keterangan = 'Tidak ada perubahan harga';
+    } else {
+        $Keterangan = 'Perubahan harga dari Rp. ' . $HargaBefore . ' menjadi Rp. ' . $Harga[$i];
+    }
+
+    mysqli_query($connection, "INSERT INTO c_laporansetorankasir VALUES ('', '$NoKamar', '$Nama', '$Harga[$i]', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser', '$Keterangan')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES ('', '$NoKamar', '$Nama', '$Harga[$i]', '$Pembayaran', '$TglKui', '$Category', '$timestampwib', '$idUser', 'TAGIHAN', '$Keterangan')");
 
     header('location:historytagihan.php');
   }
@@ -56,7 +64,6 @@ if (isset($_POST['submit'])) {
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-
     <link rel="stylesheet" href="assets/css/custom.style.css">
 </head>
 
@@ -113,9 +120,10 @@ if (isset($_POST['submit'])) {
                                             <tbody>
                                                 <?php $nomor = 1;
                                                 while ($i < sizeof($selectedData)) {
-                                                    $query = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi JOIN jenispembayaran ON (b_data_print_kuitansi.idPembayaran = jenispembayaran.idPembayaran) WHERE No_Kamar = '$selectedData[$i]'");
+                                                    $query = mysqli_query($connection, "SELECT * FROM b_data_print_kuitansi JOIN jenispembayaran ON (b_data_print_kuitansi.idPembayaran = jenispembayaran.idPembayaran) WHERE id_Kui = '$selectedData[$i]'");
 
                                                     $fetchData = mysqli_fetch_array($query);
+                                                    $index = $fetchData['id_Kui'];
                                                     $Nama = $fetchData['Nama'];
                                                     $Harga = $fetchData['Harga'];
                                                     $NoKamar = $fetchData['No_Kamar'];
@@ -128,11 +136,12 @@ if (isset($_POST['submit'])) {
 
                                                 ?>
                                                     <tr >
-                                                        <td style="display:none"><input type="checkbox" name="checkboxData[]" value="<?php echo $NoKamar ?>" checked></td>
+                                                        <td style="display:none"><input type="checkbox" name="checkboxData[]" value="<?php echo $index ?>" checked></td>
                                                         <td style="display:none"><?php echo $nomor ?></td>
                                                         <td><?php echo $NoKamar ?></td>
                                                         <td><?php echo $Nama ?></td>
-                                                        <td>Rp. <?php echo $fHarga ?></td>
+                                                        <!-- <td>Rp. <?php echo $fHarga ?></td> -->
+                                                        <td>Rp.<input type="number" name="hargaKamar[]" value="<?php echo $Harga ?>" style="border:none"/></td>
                                                         <td><?php echo $Pembayaran ?></td>
                                                         <td><?php echo $TglKui ?></td>
                                                         <td><?php echo $CategoryTemp ?></td>
@@ -146,7 +155,7 @@ if (isset($_POST['submit'])) {
                                                         <td style="display:none"></td>
                                                         <td></td>
                                                         <td><b>Total:</b> </td>
-                                                        <td>Rp. <?php echo $fSubTotal?></td>
+                                                        <td>Rp. <input name="sum" type="text" value="<?php echo $fSubTotal ?>" style="border:none" disabled/></td>
                                                         <td></td>
                                                         <td ></td>
                                                         <td></td>
@@ -198,6 +207,25 @@ if (isset($_POST['submit'])) {
     <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="assets/js/datatable.js"></script>
+    <script>
+    //Get a list of input fields to sum
+    var elements = document.getElementsByName("hargaKamar[]");
+    var element_array = Array.prototype.slice.call(elements);
+
+    //Assign the keyup event handler
+    for(var i=0; i < element_array.length; i++){
+        element_array[i].addEventListener("keyup", sum_values);
+    }
+
+    //Function to sum the values and assign it to the last input field
+    function sum_values(){
+        var sum = 0;
+        for(var i=0; i < element_array.length; i++){
+            sum += parseInt(element_array[i].value, 10);
+        }
+        document.getElementsByName("sum")[0].value = sum;
+    }
+    </script>
     
 </body>
 
