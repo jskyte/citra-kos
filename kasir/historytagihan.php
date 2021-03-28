@@ -121,6 +121,7 @@ $Total = 0
                                     <th>Harga</th>
                                     <th>Fasilitas</th>
                                     <th>Tanggal Kuitansi</th>
+                                    <th>Keterangan</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -145,6 +146,7 @@ $Total = 0
                                         <td>Rp. <?php echo $Harga ?></td>
                                         <td><?php echo $rowD['jenisPemb'] ?></td>
                                         <td><?php echo $rowD['Tgl_Kejadian'] ?></td>
+                                        <td><?php echo $rowD['keterangan'] ?></td>
                                       </tr>
                                     <?php } ?>
                                   <?php } ?>
@@ -152,6 +154,7 @@ $Total = 0
                                         <td></td>
                                         <td style="text-align:right"> <b>Total: </b></td>
                                         <td><b> Rp. <?php echo $fSumHarga ?> </b></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                       </tr>
