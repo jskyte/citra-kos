@@ -11,8 +11,8 @@ $idUser = $_SESSION['idUser'];
 $query = mysqli_query($connection, "SELECT Tgl_Submit, status, COUNT(No_Kamar) as jumlahTagihan
 FROM e_loguser
 WHERE idUser = '$idUser'
-GROUP BY Tgl_Submit
-ORDER BY Tgl_Submit DESC");
+GROUP BY DATE_FORMAT(`tgl_submit`, '%Y-%m-%d %H:%i')
+ORDER BY DATE_FORMAT(`tgl_submit`, '%Y-%m-%d %H:%i') DESC");
 
 $Total = 0
 
@@ -86,10 +86,11 @@ $Total = 0
                         $tglSubmit = $row['Tgl_Submit'];
                         $mysqldate = date('d-m-Y', $phpdate);
                         $mysqlhour =  date('H:i', $phpdate);
+                        $dateMinute =  date('Y-m-d H:i', $phpdate);
                         $byDate = mysqli_query($connection, "SELECT * FROM e_loguser 
                         JOIN jenispembayaran ON (jenispembayaran.idPembayaran = e_loguser.idPembayaran) 
                         WHERE idUser = '$idUser' 
-                        AND e_loguser.Tgl_Submit = '$tglSubmit'") ?>
+                        AND DATE_FORMAT(e_loguser.Tgl_Submit, '%Y-%m-%d %H:%i') = '$dateMinute'") ?>
                         <div class="card card-<?php
                           if($row['status'] == 'MASUK') {
                             echo 'success';
@@ -128,12 +129,13 @@ $Total = 0
                                   <?php if (mysqli_num_rows($byDate) > 0) { ?>
                                     <?php while ($rowD = mysqli_fetch_array($byDate)) {
                                       $status = $rowD['status'];
-                                      $tglSub = $rowD['Tgl_Submit'];
+                                      $tglSub = strtotime($rowD['Tgl_Submit']);
+                                      $tglSubMinute =  date('Y-m-d H:i', $tglSub);
                                       $getHarga = mysqli_query($connection, "SELECT SUM(Harga) as total
                                       FROM e_loguser
                                       WHERE idUser = '$idUser'
                                       AND status = '$status'
-                                      AND Tgl_Submit = '$tglSub'");
+                                      AND DATE_FORMAT(e_loguser.Tgl_Submit, '%Y-%m-%d %H:%i') = '$tglSubMinute'");
 
                                       $fetchHarga = mysqli_fetch_array($getHarga);
                                       $sumHarga = $fetchHarga['total'];
