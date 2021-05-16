@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     $tglKejadian = $_REQUEST["inputTanggalKejadian"];
     $categoryTempat = $_REQUEST["inputcategoryTempat"];
 
-    mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '' WHERE No_Kamar = '$getNoKamar'");
+    mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '', dp = 0 WHERE No_Kamar = '$getNoKamar'");
 
     mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
 

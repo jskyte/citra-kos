@@ -29,16 +29,18 @@ if (isset($_POST['submit'])) {
     $idPembayaran = $_REQUEST["inputFasilitas"];
     $tglKejadian = $_REQUEST["inputTanggalKejadian"];
     $categoryTempat = $row["Category_Tempat"];
+    $dp = $_REQUEST["inputDp"];
+    $formatdp = number_format($dp, 0, ",", ".");
 
     $queryFasil = mysqli_query($connection, "SELECT * FROM jenispembayaran WHERE idPembayaran = '$idPembayaran'");
     $fetchFasil = mysqli_fetch_array($queryFasil);
     $jenisFasilitas = $fetchFasil['jenisPemb'];
 
-    mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '$nama', Tgl_Kui = '$tglKejadian', Harga = '$harga', idPembayaran = '$idPembayaran' WHERE No_Kamar = '$getNoKamar'");
+    mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '$nama', Tgl_Kui = '$tglKejadian', Harga = '$harga', idPembayaran = '$idPembayaran', dp = '$dp' WHERE No_Kamar = '$getNoKamar'");
 
-    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
+    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Pembayaran Down Payment Sebesar Rp. $formatdp')");
 
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Pembayaran Down Payment Sebesar Rp. $formatdp')");
 
     header('location:laporandatamasuk.php');
 }
@@ -119,6 +121,11 @@ if (isset($_POST['submit'])) {
                                             <label for="harga">Harga</label>
                                             <input type="number" class="form-control" id="harga" name="inputHarga"  value="<?php echo $row['Harga'] ?>" placeholder="Harga Sebelumnya: Rp. <?php echo $harga ?>">
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="dp">Down Payment</label>
+                                            <input type="number" class="form-control" id="dp" name="inputDp"  placeholder="Masukkan DP">
+                                        </div>
                                         
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="categoryTempat" name="inputcategoryTempat" value="<?php echo $row['Category_Tempat'] ?>">
@@ -126,15 +133,15 @@ if (isset($_POST['submit'])) {
 
                                         <div class="form-group">
                                             <label for="fasilitas">Fasilitas</label>
-                                            <select name="inputFasilitas" class="form-control" id="fasilitas">
-                                                <option value="<?php echo $row['idPembayaran']?>">Fasilitas Sebelumnya: <?php echo $row['jenisPemb']?></option>
-                                                <?php if (mysqli_num_rows($queryfasilitas) > 0) { ?>
+                                            <select name="inputFasilitas" class="form-control" id="fasilitas" readonly>
+                                                <option value="<?php echo 6?>"><?php echo "DP"?></option>
+                                                <!-- <?php if (mysqli_num_rows($queryfasilitas) > 0) { ?>
                                                     <?php while ($row = mysqli_fetch_array($queryfasilitas)) { ?>
-                                                        <option value="<?php echo $row["idPembayaran"] ?>">
+                                                        <option value="<?php echo $row["idPembayaran"] ?>" disabled>
                                                             <?php echo $row["jenisPemb"]; ?>
                                                         </option>
                                                     <?php } ?>
-                                                <?php } ?>
+                                                <?php } ?> -->
                                             </select>
                                         </div>
                                         

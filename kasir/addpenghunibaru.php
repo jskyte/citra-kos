@@ -14,7 +14,20 @@ WHERE d.Nama = '' AND l.idUser = '$idUser'");
 
 if (isset($_POST['submit'])) {
   $noKamar = $_REQUEST["inputNoKamar"];
-  header('location:detailpenghunichange.php?nokamar='.$noKamar);
+
+  $queryLokasi = mysqli_query($connection, "SELECT * 
+  FROM d_masterkamarcpy d JOIN lokasikerjauser l ON (l.lokasiKos = d.Category_Tempat)
+  WHERE d.No_Kamar = '$noKamar' AND l.idUser = '$idUser'");
+
+  $fetchLokasi = mysqli_fetch_array($queryLokasi);
+  $lokasiKos = $fetchLokasi["lokasiKos"];
+
+  if($lokasiKos == "Sinar Budi L") {
+    header('location:detailpenghunichangebudi.php?nokamar=' . $noKamar);
+  } else {
+    header('location:detailpenghunichange.php?nokamar=' . $noKamar);
+  }
+  
 }
 
 
@@ -36,7 +49,7 @@ if (isset($_POST['submit'])) {
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -119,6 +132,7 @@ if (isset($_POST['submit'])) {
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+
 </body>
 
 </html>
