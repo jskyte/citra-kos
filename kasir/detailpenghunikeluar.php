@@ -24,11 +24,17 @@ if (isset($_POST['submit'])) {
     $tglKejadian = $_REQUEST["inputTanggalKejadian"];
     $categoryTempat = $_REQUEST["inputcategoryTempat"];
 
+    $tglKejadianDay = substr($tglKejadian, 0, 2);
+    $tglKejadianMonth = substr($tglKejadian, 3, 2);
+    $tglKejadianYear = substr($tglKejadian, 6, 4);
+
+    $tglKejadianInput = $tglKejadianYear . '-' . $tglKejadianMonth . '-' . $tglKejadianDay;
+
     mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '', dp = 0 WHERE No_Kamar = '$getNoKamar'");
 
-    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
+    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
 
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadian', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
 
     header('location:laporandatakeluar.php');
 }
@@ -52,6 +58,10 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 
 </head>
 
@@ -97,7 +107,7 @@ if (isset($_POST['submit'])) {
 
                                         <div class="form-group">
                                             <label for="tanggalkejadian">Tanggal Keluar</label>
-                                            <input type="date" class="form-control" id="tanggalkejadian" name="inputTanggalKejadian" placeholder="Masukkan Tanggal Keluar">
+                                            <input type="text" class="form-control" id="tanggalkejadian" name="inputTanggalKejadian" readonly required style="background-color:white">
                                         </div>
 
                                         <div class="form-group">
@@ -154,6 +164,11 @@ if (isset($_POST['submit'])) {
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+
+    <!-- Datepicker JS -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="assets/js/datepicker.js"></script>
 </body>
 
 </html>

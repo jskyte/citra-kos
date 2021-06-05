@@ -14,7 +14,7 @@ WHERE d.Nama != '' AND l.idUser = '$idUser'");
 
 if (isset($_POST['submit'])) {
   $noKamar = $_REQUEST["inputNoKamar"];
-  header('location:detailpenghunikeluar.php?nokamar='.$noKamar);
+  header('location:detailpenghunikeluar.php?nokamar=' . $noKamar);
 }
 
 
@@ -36,7 +36,10 @@ if (isset($_POST['submit'])) {
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -81,7 +84,7 @@ if (isset($_POST['submit'])) {
 
                     <div class="form-group">
                       <label for="nokamar">No. Kamar</label>
-                      <select name="inputNoKamar" class="form-control" id="nokamar">
+                      <select name="inputNoKamar" class="form-control select2bs4" id="nokamar">
                         <option value="NULL">Pilih No. Kamar</option>
                         <?php if (mysqli_num_rows($query) > 0) { ?>
                           <?php while ($row = mysqli_fetch_array($query)) { ?>
@@ -119,6 +122,20 @@ if (isset($_POST['submit'])) {
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+  <!-- Select2 -->
+  <script src="plugins/select2/js/select2.full.min.js"></script>
+
+  <script>
+    $(function() {
+      //Initialize Select2 Elements
+      $('.select2').select2()
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+    })
+  </script>
 </body>
 
 </html>
