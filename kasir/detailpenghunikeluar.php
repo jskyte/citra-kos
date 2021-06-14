@@ -30,11 +30,15 @@ if (isset($_POST['submit'])) {
 
     $tglKejadianInput = $tglKejadianYear . '-' . $tglKejadianMonth . '-' . $tglKejadianDay;
 
+    $tz = 'Asia/Jakarta';
+    $dt = new DateTime("now", new DateTimeZone($tz));
+    $timestampwib = $dt->format('Y-m-d G:i:s');
+
     mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '', dp = 0 WHERE No_Kamar = '$getNoKamar'");
 
-    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
+    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', '$timestampwib', '$idUser', 'KELUAR', '')");
 
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'KELUAR', '')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', '$timestampwib', '$idUser', 'KELUAR', '')");
 
     header('location:laporandatakeluar.php');
 }

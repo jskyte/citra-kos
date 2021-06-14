@@ -41,11 +41,15 @@ if (isset($_POST['submit'])) {
     $fetchFasil = mysqli_fetch_array($queryFasil);
     $jenisFasilitas = $fetchFasil['jenisPemb'];
 
+    $tz = 'Asia/Jakarta';
+    $dt = new DateTime("now", new DateTimeZone($tz));
+    $timestampwib = $dt->format('Y-m-d G:i:s');
+
     mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '$nama', Tgl_Kui = '$tglKejadianInput', Harga = '$harga', idPembayaran = '$idPembayaran' WHERE No_Kamar = '$getNoKamar'");
 
-    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '', '', '', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
+    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '', '', '', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', '$timestampwib', '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
 
-    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
+    mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', '$timestampwib', '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Perubahan Fasilitas dari $fasilitasBefore menjadi $jenisFasilitas')");
 
     header('location:laporandatamasuk.php');
 }
