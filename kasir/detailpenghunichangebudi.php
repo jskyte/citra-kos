@@ -30,6 +30,8 @@ if (isset($_POST['submit'])) {
     $tglKejadian = $_REQUEST["inputTanggalKejadian"];
     $categoryTempat = $row["Category_Tempat"];
     $dp = $_REQUEST["inputDp"];
+    $meteranPln = $_REQUEST["inputMeteranPln"];
+    $meteranPam = $_REQUEST["inputMeteranPam"];
     $formatdp = number_format($dp, 0, ",", ".");
 
     $tglKejadianDay = substr($tglKejadian, 0, 2);
@@ -44,7 +46,7 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($connection, "UPDATE d_masterkamarcpy SET Nama = '$nama', Tgl_Kui = '$tglKejadianInput', Harga = '$harga', idPembayaran = '$idPembayaran', dp = '$dp' WHERE No_Kamar = '$getNoKamar'");
 
-    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Pembayaran Down Payment Sebesar Rp. $formatdp')");
+    mysqli_query($connection, "INSERT INTO c_laporanklrmsk VALUES('', '$getNoKamar', '$nama', '$harga', '$dp', '$meteranPln', '$meteranPam',  '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Pembayaran Down Payment Sebesar Rp. $formatdp')");
 
     mysqli_query($connection, "INSERT INTO e_loguser VALUES('', '$getNoKamar', '$nama', '$harga', '$idPembayaran', '$tglKejadianInput', '$categoryTempat', NOW(), '$idUser', 'MASUK', 'Perubahan Harga dari Rp. $formathargaBefore menjadi Rp. $formatharga dan Pembayaran Down Payment Sebesar Rp. $formatdp')");
 
@@ -135,6 +137,16 @@ if (isset($_POST['submit'])) {
                                         <div class="form-group">
                                             <label for="dp">Down Payment</label>
                                             <input type="number" class="form-control" id="dp" name="inputDp"  placeholder="Masukkan DP">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="meteranpln">Meteran PLN</label>
+                                            <input type="number" class="form-control" id="meteranpln" name="inputMeteranPln"  placeholder="Masukkan Meteran PLN">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="meteranpam">Meteran PAM</label>
+                                            <input type="number" class="form-control" id="meteranpam" name="inputMeteranPam"  placeholder="Masukkan Meteran PAM">
                                         </div>
                                         
                                         <div class="form-group">

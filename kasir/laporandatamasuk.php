@@ -79,6 +79,9 @@
                     <th style="width: 20px">Nomor Kamar</th>
                     <th style="width: 20px">Nama</th>
                     <th>Harga</th>
+                    <th>Down Payment</th>
+                    <th>Meteran PLN</th>
+                    <th>Meteran PAM</th>
                     <th>Pembayaran</th>
                     <th>Tanggal Masuk</th>
                     <th>Category Tempat</th>
@@ -89,11 +92,33 @@
                     <?php if(mysqli_num_rows($query) > 0) { ?>
                         <?php while($row = mysqli_fetch_array($query)) {  
                           $Harga = number_format($row['Harga'], 0, ",", ".");
+                          $dp = number_format($row['dp'], 0, ",", ".");
                           ?>
                             <tr>
                                 <td><?php echo $row['No_Kamar']?></td>
                                 <td><?php echo $row['Nama']?></td>
                                 <td>Rp. <?php echo $Harga?></td>
+                                <td><?php 
+                                    if($row['Category_Tempat'] == 'Sinar Budi L') {
+                                      echo 'Rp. ' . $dp;
+                                    } else {
+                                      echo '-';
+                                    }
+                                ?></td>
+                                <td><?php 
+                                    if($row['Category_Tempat'] == 'Sinar Budi L') {
+                                      echo $row['meteran_pln'];
+                                    } else {
+                                      echo '-';
+                                    }
+                                ?></td>
+                                <td><?php 
+                                    if($row['Category_Tempat'] == 'Sinar Budi L') {
+                                      echo $row['meteran_pam'];
+                                    } else {
+                                      echo '-';
+                                    }
+                                ?></td>
                                 <td><?php echo $row['jenisPemb']?></td>
                                 <td><?php echo $row['Tgl_Kejadian']?></td>
                                 <td><?php echo $row['Category_Tempat']?></td>
